@@ -10,6 +10,7 @@ import {
   Button,
   TouchableOpacity,
   Picker,
+  Vibration
 } from 'react-native';
 
 
@@ -22,6 +23,7 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { variableDeclaration } from '@babel/types';
 
 class App extends React.Component {
   state = {
@@ -44,6 +46,7 @@ class App extends React.Component {
   componentDidMount() {}
 
   update = async value => {
+    // Vibration.vibrate(500)
     axios
       .get(
         `https://miami-transit-api.herokuapp.com/api/TrainTracker.json?StationID=${value}`,
@@ -72,10 +75,10 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={[styles.header, styles.alignCenter]}>Metro Times</Text>
+        <Text style={[styles.title, styles.alignCenter]}>Metro Times</Text>
 
         <View style={styles.trainInfoContainer}>
-          <Text style={styles.header2}>{this.state.stationName}</Text>
+          <Text style={styles.header}>{this.state.stationName}</Text>
           <Text style={styles.subHeader}>Northbound </Text>
           <Text style={styles.trainText}>1st Train: {this.state.firstNorthTrainArrival}-----{this.state.firstNorthTrain}</Text>
           <Text style={styles.trainText}>2nd Train: {this.state.secondNorthTrainArrival}-----{this.state.secondNorthTrain}</Text>
@@ -121,22 +124,26 @@ const styles = StyleSheet.create({
   alignCenter: {
     textAlign: 'center',
   },
-  header: {
+  title: {
     fontSize: 50,
     paddingTop: 50,
     paddingLeft: 20,
     // textAlign: "center",
     color: 'white',
+    fontWeight: "bold"
   },
-  header2: {
+  header: {
     fontSize: 45,
     paddingTop: 50,
     color: 'white',
+    fontWeight: "bold"
   },
   subHeader: {
     fontSize: 40,
     paddingTop: 30,
     color: 'white',
+    fontWeight: "bold"
+
   },
   trainText: {
     fontSize: 20,
@@ -146,12 +153,13 @@ const styles = StyleSheet.create({
   button: {
     borderWidth: 3,
     backgroundColor: 'white',
-    width: 100,
-    height: 50,
+    width: 150,
+    height: 70,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
+    margin: 20,
   },
   buttonText: {
     fontSize: 20,
@@ -159,10 +167,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+    flexDirection: 'row',
     // backgroundColor: 'blue',
     marginTop: 40,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
     width: Dimensions.get('window').width,
   },
   picker: {
