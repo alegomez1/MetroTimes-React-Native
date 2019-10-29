@@ -5,7 +5,8 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Button
 } from 'react-native';
 
 
@@ -14,6 +15,7 @@ import train from "./assets/metroPNG.png"
 
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigation, createStackNavigator } from 'react-navigation-stack'
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import SettingsScreen from './components/Settings'
 
@@ -30,19 +32,23 @@ import {variableDeclaration} from '@babel/types';
 class HomeScreen extends React.Component {
 
   componentDidMount(){
-    
-    console.log('mounted----', this.props.test2)
+    // console.log('mounted----', this.props)
+  }
 
-
+  move(){
+    console.log('move func')
+    // this.props.navigation.navigate('Settings')
+    console.log('move fun ended')
   }
 
   static navigationOptions  ={
     headerRight: () => (
-      <TouchableOpacity
+      <Button
+      title="Settings"
       style={styles.settingsButton}
-      onPress={() => navigation.navigate('Settings')}>
+      onPress={() => console.log('pressed')}>
       <Text style={styles.buttonText}>Settings</Text>
-    </TouchableOpacity>
+    </Button>
     ),
     headerTitle: 'Metro Times',
     headerStyle: {
@@ -55,9 +61,6 @@ class HomeScreen extends React.Component {
     },
     
   };
-
-
-
 
   state = {
     stationName: '',
@@ -175,12 +178,7 @@ class HomeScreen extends React.Component {
             onPress={() => this.update('BLK')}>
             <Text style={styles.buttonText}>Evening</Text>
           </TouchableOpacity>
-
         </View>
-
-    
-
-
       </View>
     );
   }
@@ -199,37 +197,53 @@ class Settings extends React.Component {
     },
   };
   render() {
-    return <SettingsScreen></SettingsScreen>;
+    return <SettingsScreen/>;
   }
 }
 
-const AppNavigator = createStackNavigator(
+ const AppNavigator = createStackNavigator(
   {
   Home: HomeScreen,
-  Settings: Settings
+  Settings: Settings,
 },
 {
   initialRouteName: 'Home'
 }
 )
 
-const AppContainer = createAppContainer(AppNavigator)
+const TabNavigator = createBottomTabNavigator(
+  {
+    Home: HomeScreen,
+    Settings: Settings,
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
+      style:{
+      backgroundColor: 'rgba(51, 51, 51, 0.9)',
+      },
+      labelStyle:{
+      fontSize: 20,
+      }
+    },
+  }
+);
+
+const AppContainer = createAppContainer(TabNavigator)
+
 
 export default class App extends React.Component{
   render () {
     return <AppContainer/>
-  }
-}
+  }}
+// export default createAppContainer(TabNavigator);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    paddingTop: 0,
-    
+    paddingTop: 40,
     backgroundColor: 'rgba(0, 0, 0, 0.9)',
-    // backgroundColor: '#F5F5F5',
-
     height: Dimensions.get('window').height,
   },
   status: {
