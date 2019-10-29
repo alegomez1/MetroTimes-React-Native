@@ -9,7 +9,6 @@ import {
   Button
 } from 'react-native';
 
-
 import axios from 'axios';
 import train from "./assets/metroPNG.png"
 
@@ -225,6 +224,7 @@ const TabNavigator = createBottomTabNavigator(
       },
       labelStyle:{
       fontSize: 20,
+      fontWeight: "bold"
       }
     },
   }
@@ -237,7 +237,6 @@ export default class App extends React.Component{
   render () {
     return <AppContainer/>
   }}
-// export default createAppContainer(TabNavigator);
 
 const styles = StyleSheet.create({
   container: {
@@ -277,8 +276,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
     color: 'white'
-
-
   },
   timeOfDay: {
     flexDirection: 'row',
@@ -338,7 +335,6 @@ const styles = StyleSheet.create({
   },
   trainHeader: {
     color:'white',
-
     marginLeft: 15,
     marginTop: 15,
     fontSize: 30,
@@ -346,7 +342,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   trainInfo: {
-
     marginTop: 10,
     // backgroundColor: 'red',
     height: 50,
@@ -355,7 +350,6 @@ const styles = StyleSheet.create({
   },
   trainNames: {
     color:'white',
-
     fontSize: 20,
     paddingLeft: 70,
     paddingRight: 70,
@@ -363,7 +357,6 @@ const styles = StyleSheet.create({
   },
   trainTimes: {
     color:'white',
-
     fontSize: 20,
     paddingLeft: 75,
     paddingRight: 75,
