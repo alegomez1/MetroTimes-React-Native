@@ -1,17 +1,23 @@
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   Text,
   Dimensions,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Button
 } from 'react-native';
-
 
 import axios from 'axios';
 import train from "./assets/metroPNG.png"
+
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigation, createStackNavigator } from 'react-navigation-stack'
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+
+import SettingsScreen from './components/Settings'
+
 
 import {
   Header,
@@ -22,7 +28,39 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import {variableDeclaration} from '@babel/types';
 
-class App extends React.Component {
+class HomeScreen extends React.Component {
+
+  componentDidMount(){
+    // console.log('mounted----', this.props)
+  }
+
+  move(){
+    console.log('move func')
+    // this.props.navigation.navigate('Settings')
+    console.log('move fun ended')
+  }
+
+  static navigationOptions  ={
+    headerRight: () => (
+      <Button
+      title="Settings"
+      style={styles.settingsButton}
+      onPress={() => console.log('pressed')}>
+      <Text style={styles.buttonText}>Settings</Text>
+    </Button>
+    ),
+    headerTitle: 'Metro Times',
+    headerStyle: {
+      backgroundColor: 'rgba(51, 51, 51, 0.9)',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontSize: 25
+    },
+    
+  };
+
   state = {
     stationName: '',
 
@@ -95,9 +133,9 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.status}>
+        {/* <View style={styles.status}>
           <Text style={styles.appName}>Metro Times</Text>
-        </View>
+        </View> */}
 
         <Text style={styles.stationName}>{this.state.stationName} Station</Text>
         <View style={styles.trainPill} shadowColor={'black'}>
@@ -139,26 +177,72 @@ class App extends React.Component {
             onPress={() => this.update('BLK')}>
             <Text style={styles.buttonText}>Evening</Text>
           </TouchableOpacity>
-
         </View>
-
-    
-
-
       </View>
     );
   }
 }
 
+class Settings extends React.Component {
+
+  static navigationOptions = {
+    title: 'Settings',
+    headerStyle: {
+      backgroundColor: 'rgba(51, 51, 51, 0.9)',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+  render() {
+    return <SettingsScreen/>;
+  }
+}
+
+ const AppNavigator = createStackNavigator(
+  {
+  Home: HomeScreen,
+  Settings: Settings,
+},
+{
+  initialRouteName: 'Home'
+}
+)
+
+const TabNavigator = createBottomTabNavigator(
+  {
+    Home: HomeScreen,
+    Settings: Settings,
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
+      style:{
+      backgroundColor: 'rgba(51, 51, 51, 0.9)',
+      },
+      labelStyle:{
+      fontSize: 20,
+      fontWeight: "bold"
+      }
+    },
+  }
+);
+
+const AppContainer = createAppContainer(TabNavigator)
+
+
+export default class App extends React.Component{
+  render () {
+    return <AppContainer/>
+  }}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    paddingTop: 0,
-    
+    paddingTop: 40,
     backgroundColor: 'rgba(0, 0, 0, 0.9)',
-    // backgroundColor: '#F5F5F5',
-
     height: Dimensions.get('window').height,
   },
   status: {
@@ -192,8 +276,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
     color: 'white'
-
-
   },
   timeOfDay: {
     flexDirection: 'row',
@@ -253,7 +335,6 @@ const styles = StyleSheet.create({
   },
   trainHeader: {
     color:'white',
-
     marginLeft: 15,
     marginTop: 15,
     fontSize: 30,
@@ -261,7 +342,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   trainInfo: {
-
     marginTop: 10,
     // backgroundColor: 'red',
     height: 50,
@@ -270,7 +350,6 @@ const styles = StyleSheet.create({
   },
   trainNames: {
     color:'white',
-
     fontSize: 20,
     paddingLeft: 70,
     paddingRight: 70,
@@ -278,7 +357,6 @@ const styles = StyleSheet.create({
   },
   trainTimes: {
     color:'white',
-
     fontSize: 20,
     paddingLeft: 75,
     paddingRight: 75,
@@ -296,4 +374,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
