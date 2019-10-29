@@ -10,9 +10,8 @@ import {
   Button,
   TouchableOpacity,
   Picker,
-  Vibration
+  Vibration,
 } from 'react-native';
-
 
 import axios from 'axios';
 
@@ -23,7 +22,7 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { variableDeclaration } from '@babel/types';
+import {variableDeclaration} from '@babel/types';
 
 class App extends React.Component {
   state = {
@@ -40,10 +39,7 @@ class App extends React.Component {
 
     secondSouthTrain: '',
     secondSouthTrainArrival: '',
-
   };
-
-  componentDidMount() {}
 
   update = async value => {
     // Vibration.vibrate(500)
@@ -63,11 +59,10 @@ class App extends React.Component {
           secondNorthTrainArrival: data.NB_Time2_Arrival,
 
           firstSouthTrain: data.SB_Time1,
-        firstSouthTrainArrival: data.SB_Time1_Arrival,
+          firstSouthTrainArrival: data.SB_Time1_Arrival,
 
           secondSouthTrain: data.SB_Time2,
-        secondSouthTrainArrival: data.SB_Time2_Arrival,
-
+          secondSouthTrainArrival: data.SB_Time2_Arrival,
         });
       });
   };
@@ -75,34 +70,29 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={[styles.title, styles.alignCenter]}>Metro Times</Text>
-
-        <View style={styles.trainInfoContainer}>
-          <Text style={styles.header}>{this.state.stationName}</Text>
-          <Text style={styles.subHeader}>Northbound </Text>
-          <Text style={styles.trainText}>1st Train: {this.state.firstNorthTrainArrival}-----{this.state.firstNorthTrain}</Text>
-          <Text style={styles.trainText}>2nd Train: {this.state.secondNorthTrainArrival}-----{this.state.secondNorthTrain}</Text>
-          <Text style={styles.subHeader}>Southbound </Text>
-          <Text style={styles.trainText}>1st Train: {this.state.firstSouthTrainArrival}-----{this.state.firstSouthTrain}</Text>
-          <Text style={styles.trainText}>2nd Train: {this.state.secondSouthTrainArrival}-----{this.state.secondSouthTrain}</Text>
-        </View>
-
-        <View style={styles.buttonContainer}>
-
+        <View style={styles.timeOfDay}>
+          <Text>Time of day:</Text>
           <TouchableOpacity
             style={styles.button}
             title="Update"
             onPress={() => this.update('DLN')}>
-            <Text style={styles.buttonText}>Dadeland</Text>
+            <Text style={styles.buttonText}>Morning</Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             style={styles.button}
             title="Update"
-            onPress={() => this.update('BLK')}>
-            <Text style={styles.buttonText}>Brickell</Text>
+            onPress={() => this.update('DLN')}>
+            <Text style={styles.buttonText}>Evening</Text>
           </TouchableOpacity>
         </View>
+
+        <View style={styles.trainPill} shadowColor={'black'}>
+          <Text style={styles.trainHeader}>Northbound</Text>
+          <View style={styles.trainInfo}>
+
+          </View>
+        </View>
+        
       </View>
     );
   }
@@ -110,76 +100,58 @@ class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    // marginTop: 0,
     flex: 1,
-    justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundColor: '#343A40',
+    // justifyContent: 'center',
+    paddingTop: 90,
+    backgroundColor: '#F5F5F5',
     height: Dimensions.get('window').height,
   },
-  trainInfoContainer: {
+  timeOfDay: {
+    flexDirection: 'row',
     // backgroundColor: 'red',
-    paddingLeft: 20,
-  },
-  alignCenter: {
-    textAlign: 'center',
-  },
-  title: {
-    fontSize: 50,
-    paddingTop: 50,
-    paddingLeft: 20,
-    // textAlign: "center",
-    color: 'white',
-    fontWeight: "bold"
-  },
-  header: {
-    fontSize: 45,
-    paddingTop: 50,
-    color: 'white',
-    fontWeight: "bold"
-  },
-  subHeader: {
-    fontSize: 40,
-    paddingTop: 30,
-    color: 'white',
-    fontWeight: "bold"
-
-  },
-  trainText: {
-    fontSize: 20,
-    paddingTop: 10,
-    color: 'white',
+    height: 50,
+    alignItems: 'center',
+    marginLeft: 50,
   },
   button: {
     borderWidth: 3,
     backgroundColor: 'white',
-    width: 150,
-    height: 70,
+    width: 80,
+    height: 30,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-    margin: 20,
+    marginLeft: 30,
   },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  trainPill: {
+    backgroundColor: 'white',
+    marginTop: 50,
+    height: 150,
+    borderRadius: 10,
+    marginLeft: 10,
+    marginRight: 10,
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
-  buttonContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    // backgroundColor: 'blue',
-    marginTop: 40,
-    justifyContent: 'center',
-    alignItems: "center",
-    width: Dimensions.get('window').width,
+  trainHeader:{
+    marginLeft: 15,
+    marginTop: 15,
+    fontSize: 30,
+    fontFamily: 'AppleSDGothicNeo-Bold'
   },
-  picker: {
-    fontSize: 60,
-    marginLeft: 50,
-    marginTop: 100,
-    textAlign: 'center',
-  },
+  trainInfo:{
+    backgroundColor: 'red',
+    height: 50,
+  }
 });
 
 export default App;
