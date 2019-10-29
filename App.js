@@ -16,6 +16,8 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigation, createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
+import Icon from 'react-native-vector-icons/Ionicons'
+
 import SettingsScreen from './components/Settings'
 
 
@@ -58,7 +60,6 @@ class HomeScreen extends React.Component {
       fontWeight: 'bold',
       fontSize: 25
     },
-    
   };
 
   state = {
@@ -144,7 +145,6 @@ class HomeScreen extends React.Component {
             <Text style={styles.trainNames}>1st Train</Text>
             <Text style={styles.trainNames}>2nd Train</Text>
           </View>
-
           <View style={styles.trainInfo}>
             <Text style={styles.trainTimes} >{this.state.firstNorthTrainArrival}</Text>
             <Text style={styles.trainTimes}>{this.state.secondNorthTrainArrival}</Text>
@@ -212,26 +212,45 @@ class Settings extends React.Component {
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Home: HomeScreen,
-    Settings: Settings,
+    Home:{
+      screen:HomeScreen,
+      navigationOptions: {
+        tabBarLabel:"Home",
+        tabBarIcon:(
+          <Icon name="ios-home" size={30} color='white' />
+        )
+      },
+    },
+
+    Settings:{
+      screen:Settings,
+      navigationOptions: {
+        tabBarLabel:"Settings",
+        tabBarIcon:(
+          <Icon name="ios-settings" size={30} color='white'/>
+        )
+      },
+    },
   },
   {
     tabBarOptions: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 30,
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
       style:{
       backgroundColor: 'rgba(51, 51, 51, 0.9)',
       },
       labelStyle:{
-      fontSize: 20,
-      fontWeight: "bold"
+      fontSize: 10,
+      fontWeight: 'bold'
       }
     },
   }
 );
 
 const AppContainer = createAppContainer(TabNavigator)
-
 
 export default class App extends React.Component{
   render () {
