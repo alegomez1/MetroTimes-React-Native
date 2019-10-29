@@ -70,6 +70,9 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.status}>
+          <Text style={styles.appName}>Metro Times</Text>
+        </View>
         <View style={styles.timeOfDay}>
           <Text>Time of day:</Text>
           <TouchableOpacity
@@ -89,10 +92,28 @@ class App extends React.Component {
         <View style={styles.trainPill} shadowColor={'black'}>
           <Text style={styles.trainHeader}>Northbound</Text>
           <View style={styles.trainInfo}>
+            <Text style={styles.trainNames}>1st Train</Text>
+            <Text style={styles.trainNames}>2nd Train</Text>
+          </View>
 
+          <View style={styles.trainInfo}>
+            <Text style={styles.trainTimes}>5:30 PM</Text>
+            <Text style={styles.trainTimes}>5:45 PM</Text>
           </View>
         </View>
-        
+
+        <View style={styles.trainPill} shadowColor={'black'}>
+          <Text style={styles.trainHeader}>Southbound</Text>
+          <View style={styles.trainInfo}>
+            <Text style={styles.trainNames}>1st Train</Text>
+            <Text style={styles.trainNames}>2nd Train</Text>
+          </View>
+
+          <View style={styles.trainInfo}>
+            <Text style={styles.trainTimes}>5:30 PM</Text>
+            <Text style={styles.trainTimes}>5:45 PM</Text>
+          </View>
+        </View>
       </View>
     );
   }
@@ -102,9 +123,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // justifyContent: 'center',
-    paddingTop: 90,
+    paddingTop: 0,
     backgroundColor: '#F5F5F5',
     height: Dimensions.get('window').height,
+  },
+  status: {
+    backgroundColor: 'white',
+    height: 90,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
+  },
+  appName: {
+    marginTop: 40,
+    textAlign: 'center',
+    fontSize: 30,
+    fontFamily: 'AppleSDGothicNeo-Bold',
   },
   timeOfDay: {
     flexDirection: 'row',
@@ -142,16 +185,32 @@ const styles = StyleSheet.create({
 
     elevation: 2,
   },
-  trainHeader:{
+  trainHeader: {
     marginLeft: 15,
     marginTop: 15,
     fontSize: 30,
-    fontFamily: 'AppleSDGothicNeo-Bold'
+    fontFamily: 'AppleSDGothicNeo-Bold',
+    textAlign: 'center',
   },
-  trainInfo:{
-    backgroundColor: 'red',
+  trainInfo: {
+    marginTop: 10,
+    // backgroundColor: 'red',
     height: 50,
-  }
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  trainNames: {
+    fontSize: 20,
+    paddingLeft: 70,
+    paddingRight: 70,
+    fontFamily: 'AppleSDGothicNeo-Bold',
+  },
+  trainTimes: {
+    fontSize: 20,
+    paddingLeft: 72,
+    paddingRight: 76,
+    fontFamily: 'AppleSDGothicNeo-Bold',
+  },
 });
 
 export default App;
