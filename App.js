@@ -58,13 +58,20 @@ class App extends React.Component {
             secondNorthTrain: 'No train',
             secondNorthTrainArrival: 'No train',
   
-            firstSouthTrain: data.SB_Time1,
-            firstSouthTrainArrival: data.SB_Time1_Arrival,
+            
+          });
+
+          if(data.SB_Time1 === '*****'){
+            this.setState({
+              firstSouthTrain: data.SB_Time1,
+            firstSouthTrainArrival: 'No train',
   
             secondSouthTrain: data.SB_Time2,
-            secondSouthTrainArrival: data.SB_Time2_Arrival,
-          });
-        } else{
+            secondSouthTrainArrival: 'No train',
+            })
+          }
+        }
+        else{
           this.setState({
             stationName: data.StationName,
   
@@ -148,11 +155,15 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     paddingTop: 0,
-    backgroundColor: '#F5F5F5',
+    
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    // backgroundColor: '#F5F5F5',
+
     height: Dimensions.get('window').height,
   },
   status: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    backgroundColor: 'rgba(51, 51, 51, 0.9)',
     height: 90,
     alignItems: 'center',
     justifyContent: 'center',
@@ -168,6 +179,8 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   appName: {
+    color:'white',
+
     marginTop: 40,
     textAlign: 'center',
     fontSize: 30,
@@ -178,6 +191,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     fontSize: 30,
     textAlign: 'center',
+    color: 'white'
 
 
   },
@@ -190,7 +204,9 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   button: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    backgroundColor: 'rgba(51, 51, 51, 0.9)',
+
     width: 100,
     height: 40,
     textAlign: 'center',
@@ -210,11 +226,14 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonText:{
+    color:'white',
     fontSize: 20,
     fontFamily: 'AppleSDGothicNeo-Bold',
   },
   trainPill: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    backgroundColor: 'rgba(51, 51, 51, 0.9)',
+
     marginTop: 30,
     marginBottom: 20,
     height: 150,
@@ -233,6 +252,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   trainHeader: {
+    color:'white',
+
     marginLeft: 15,
     marginTop: 15,
     fontSize: 30,
@@ -240,6 +261,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   trainInfo: {
+
     marginTop: 10,
     // backgroundColor: 'red',
     height: 50,
@@ -247,12 +269,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   trainNames: {
+    color:'white',
+
     fontSize: 20,
     paddingLeft: 70,
     paddingRight: 70,
     fontFamily: 'AppleSDGothicNeo-Bold',
   },
   trainTimes: {
+    color:'white',
+
     fontSize: 20,
     paddingLeft: 75,
     paddingRight: 75,
