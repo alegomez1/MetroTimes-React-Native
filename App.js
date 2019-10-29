@@ -6,10 +6,12 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 
 
 import axios from 'axios';
+import train from "./assets/metroPNG.png"
 
 import {
   Header,
@@ -103,7 +105,7 @@ class App extends React.Component {
             <Text style={styles.trainTimes}>{this.state.secondNorthTrainArrival}</Text>
           </View>
         </View>
-
+        <ImageBackground style={styles.image} source={train}></ImageBackground>
         <View style={styles.trainPill} shadowColor={'black'}>
           <Text style={styles.trainHeader}>Southbound</Text>
           <View style={styles.trainInfo}>
@@ -132,6 +134,9 @@ class App extends React.Component {
           </TouchableOpacity>
 
         </View>
+
+    
+
 
       </View>
     );
@@ -254,10 +259,14 @@ const styles = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-Bold',
     textAlign: "center"
   },
-  image:{
+  imageView:{
     flex: 1,
-    width: 100,
-    height: 100,
+    backgroundColor: 'red'
+  },
+  image:{
+    marginLeft: 5,
+    width: 400,
+    height: 80,
   }
 });
 
