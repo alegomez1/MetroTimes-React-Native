@@ -2,16 +2,12 @@ import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
   Dimensions,
-  Button,
   TouchableOpacity,
-  Picker,
-  Vibration,
 } from 'react-native';
+
 
 import axios from 'axios';
 
@@ -26,19 +22,19 @@ import {variableDeclaration} from '@babel/types';
 
 class App extends React.Component {
   state = {
-    stationName: 'Station',
+    stationName: '',
 
-    firstNorthTrain: '',
-    firstNorthTrainArrival: '',
+    firstNorthTrain: '---',
+    firstNorthTrainArrival: '----------',
 
-    secondNorthTrain: '',
-    secondNorthTrainArrival: '',
+    secondNorthTrain: '---',
+    secondNorthTrainArrival: '----------',
 
     firstSouthTrain: '',
-    firstSouthTrainArrival: '',
+    firstSouthTrainArrival: '----------',
 
     secondSouthTrain: '',
-    secondSouthTrainArrival: '',
+    secondSouthTrainArrival: '----------',
   };
 
   update = async value => {
@@ -49,21 +45,41 @@ class App extends React.Component {
       )
       .then(response => {
         let data = response.data.RecordSet.Record;
-        this.setState({
-          stationName: data.StationName,
 
-          firstNorthTrain: data.NB_Time1,
-          firstNorthTrainArrival: data.NB_Time1_Arrival,
+        if(data.NB_Time1 === '*****'){
+          this.setState({
+            stationName: data.StationName,
+  
+            firstNorthTrain: 'No train',
+            firstNorthTrainArrival: 'No train',
+  
+            secondNorthTrain: 'No train',
+            secondNorthTrainArrival: 'No train',
+  
+            firstSouthTrain: data.SB_Time1,
+            firstSouthTrainArrival: data.SB_Time1_Arrival,
+  
+            secondSouthTrain: data.SB_Time2,
+            secondSouthTrainArrival: data.SB_Time2_Arrival,
+          });
+        } else{
+          this.setState({
+            stationName: data.StationName,
+  
+            firstNorthTrain: data.NB_Time1,
+            firstNorthTrainArrival: data.NB_Time1_Arrival,
+  
+            secondNorthTrain: data.NB_Time2,
+            secondNorthTrainArrival: data.NB_Time2_Arrival,
+  
+            firstSouthTrain: data.SB_Time1,
+            firstSouthTrainArrival: data.SB_Time1_Arrival,
+  
+            secondSouthTrain: data.SB_Time2,
+            secondSouthTrainArrival: data.SB_Time2_Arrival,
+          });
+        }
 
-          secondNorthTrain: data.NB_Time2,
-          secondNorthTrainArrival: data.NB_Time2_Arrival,
-
-          firstSouthTrain: data.SB_Time1,
-          firstSouthTrainArrival: data.SB_Time1_Arrival,
-
-          secondSouthTrain: data.SB_Time2,
-          secondSouthTrainArrival: data.SB_Time2_Arrival,
-        });
       });
   };
 
@@ -73,22 +89,8 @@ class App extends React.Component {
         <View style={styles.status}>
           <Text style={styles.appName}>Metro Times</Text>
         </View>
-        <View style={styles.timeOfDay}>
-          <Text>Time of day:</Text>
-          <TouchableOpacity
-            style={styles.button}
-            title="Update"
-            onPress={() => this.update('DLN')}>
-            <Text style={styles.buttonText}>Morning</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            title="Update"
-            onPress={() => this.update('DLN')}>
-            <Text style={styles.buttonText}>Evening</Text>
-          </TouchableOpacity>
-        </View>
 
+        <Text style={styles.stationName}>{this.state.stationName} Station</Text>
         <View style={styles.trainPill} shadowColor={'black'}>
           <Text style={styles.trainHeader}>Northbound</Text>
           <View style={styles.trainInfo}>
@@ -97,8 +99,8 @@ class App extends React.Component {
           </View>
 
           <View style={styles.trainInfo}>
-            <Text style={styles.trainTimes}>5:30 PM</Text>
-            <Text style={styles.trainTimes}>5:45 PM</Text>
+            <Text style={styles.trainTimes} >{this.state.firstNorthTrainArrival}</Text>
+            <Text style={styles.trainTimes}>{this.state.secondNorthTrainArrival}</Text>
           </View>
         </View>
 
@@ -110,10 +112,27 @@ class App extends React.Component {
           </View>
 
           <View style={styles.trainInfo}>
-            <Text style={styles.trainTimes}>5:30 PM</Text>
-            <Text style={styles.trainTimes}>5:45 PM</Text>
+            <Text style={styles.trainTimes}>{this.state.firstSouthTrainArrival}</Text>
+            <Text style={styles.trainTimes}>{this.state.secondSouthTrainArrival}</Text>
           </View>
         </View>
+        
+        <View style={styles.timeOfDay}>
+          <TouchableOpacity
+            style={styles.button}
+            title="Update"
+            onPress={() => this.update('DLN')}>
+            <Text style={styles.buttonText}>Morning</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            title="Update"
+            onPress={() => this.update('BLK')}>
+            <Text style={styles.buttonText}>Evening</Text>
+          </TouchableOpacity>
+
+        </View>
+
       </View>
     );
   }
@@ -149,27 +168,50 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'AppleSDGothicNeo-Bold',
   },
+  stationName:{
+    fontFamily: 'AppleSDGothicNeo-Bold',
+    marginTop: 40,
+    fontSize: 30,
+    textAlign: 'center',
+
+
+  },
   timeOfDay: {
     flexDirection: 'row',
     // backgroundColor: 'red',
     height: 50,
     alignItems: 'center',
-    marginLeft: 50,
+    justifyContent: "center",
+    padding: 40,
   },
   button: {
-    borderWidth: 3,
     backgroundColor: 'white',
-    width: 80,
-    height: 30,
+    width: 100,
+    height: 40,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
-    marginLeft: 30,
+    borderRadius:10,
+    margin: 40,
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+  buttonText:{
+    fontSize: 20,
+    fontFamily: 'AppleSDGothicNeo-Bold',
   },
   trainPill: {
     backgroundColor: 'white',
-    marginTop: 50,
+    marginTop: 30,
+    marginBottom: 20,
     height: 150,
     borderRadius: 10,
     marginLeft: 10,
@@ -207,10 +249,16 @@ const styles = StyleSheet.create({
   },
   trainTimes: {
     fontSize: 20,
-    paddingLeft: 72,
-    paddingRight: 76,
+    paddingLeft: 75,
+    paddingRight: 75,
     fontFamily: 'AppleSDGothicNeo-Bold',
+    textAlign: "center"
   },
+  image:{
+    flex: 1,
+    width: 100,
+    height: 100,
+  }
 });
 
 export default App;
