@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   Text,
@@ -13,6 +12,12 @@ import {
 import axios from 'axios';
 import train from "./assets/metroPNG.png"
 
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigation, createStackNavigator } from 'react-navigation-stack'
+
+import SettingsScreen from './components/Settings'
+
+
 import {
   Header,
   LearnMoreLinks,
@@ -22,7 +27,38 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import {variableDeclaration} from '@babel/types';
 
-class App extends React.Component {
+class HomeScreen extends React.Component {
+
+  componentDidMount(){
+    
+    console.log('mounted----', this.props.test2)
+
+
+  }
+
+  static navigationOptions  ={
+    headerRight: () => (
+      <TouchableOpacity
+      style={styles.settingsButton}
+      onPress={() => navigation.navigate('Settings')}>
+      <Text style={styles.buttonText}>Settings</Text>
+    </TouchableOpacity>
+    ),
+    headerTitle: 'Metro Times',
+    headerStyle: {
+      backgroundColor: 'rgba(51, 51, 51, 0.9)',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontSize: 25
+    },
+    
+  };
+
+
+
+
   state = {
     stationName: '',
 
@@ -95,9 +131,9 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.status}>
+        {/* <View style={styles.status}>
           <Text style={styles.appName}>Metro Times</Text>
-        </View>
+        </View> */}
 
         <Text style={styles.stationName}>{this.state.stationName} Station</Text>
         <View style={styles.trainPill} shadowColor={'black'}>
@@ -147,6 +183,41 @@ class App extends React.Component {
 
       </View>
     );
+  }
+}
+
+class Settings extends React.Component {
+
+  static navigationOptions = {
+    title: 'Settings',
+    headerStyle: {
+      backgroundColor: 'rgba(51, 51, 51, 0.9)',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+  render() {
+    return <SettingsScreen></SettingsScreen>;
+  }
+}
+
+const AppNavigator = createStackNavigator(
+  {
+  Home: HomeScreen,
+  Settings: Settings
+},
+{
+  initialRouteName: 'Home'
+}
+)
+
+const AppContainer = createAppContainer(AppNavigator)
+
+export default class App extends React.Component{
+  render () {
+    return <AppContainer/>
   }
 }
 
@@ -296,4 +367,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
