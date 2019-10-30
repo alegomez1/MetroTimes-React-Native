@@ -12,6 +12,9 @@ import {
 import axios from 'axios';
 import train from "./assets/metroPNG.png"
 
+import convert from 'xml-js'
+
+
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigation, createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -19,7 +22,6 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import SettingsScreen from './components/Settings'
-
 
 import {
   Header,
@@ -77,57 +79,67 @@ class HomeScreen extends React.Component {
     secondSouthTrain: '',
     secondSouthTrainArrival: '----------',
   };
-
   update = async value => {
     // Vibration.vibrate(500)
-    axios
+   await axios
       .get(
-        `https://miami-transit-api.herokuapp.com/api/TrainTracker.json?StationID=${value}`,
+        `https://www.miamidade.gov/transit/WebServices/TrainTracker/?StationID=${value}`,
       )
       .then(response => {
-        let data = response.data.RecordSet.Record;
+        console.log('hello')
 
-        if(data.NB_Time1 === '*****'){
+        console.log('response------', response.data)
+
+        let convertedXML = convert.xml2js(response.data, {compact: true, spaces: 4})
+        console.log('test-----,', convertedXML)
+
+        var parsedData = JSON.parse(JSON.stringify(convertedXML))
+
+        console.log('parsed data-----', parsedData.RecordSet.Record)
+
+        let data = parsedData.RecordSet.Record
+
+        if(data.NB_Time1._text === '*****'){
           this.setState({
-            stationName: data.StationName,
+            stationName: data.StationName._text,
   
             firstNorthTrain: 'No train',
             firstNorthTrainArrival: 'No train',
   
             secondNorthTrain: 'No train',
             secondNorthTrainArrival: 'No train',
-  
-            
           });
 
-          if(data.SB_Time1 === '*****'){
+          if(data.SB_Time1._text === '*****'){
             this.setState({
-              firstSouthTrain: data.SB_Time1,
+              firstSouthTrain: data.SB_Time1._text,
             firstSouthTrainArrival: 'No train',
   
-            secondSouthTrain: data.SB_Time2,
+            secondSouthTrain: data.SB_Time2._text,
             secondSouthTrainArrival: 'No train',
             })
           }
         }
         else{
           this.setState({
-            stationName: data.StationName,
+            stationName: data.StationName._text,
   
-            firstNorthTrain: data.NB_Time1,
-            firstNorthTrainArrival: data.NB_Time1_Arrival,
+            firstNorthTrain: data.NB_Time1._text,
+            firstNorthTrainArrival: data.NB_Time1_Arrival._text,
   
-            secondNorthTrain: data.NB_Time2,
-            secondNorthTrainArrival: data.NB_Time2_Arrival,
+            secondNorthTrain: data.NB_Time2._text,
+            secondNorthTrainArrival: data.NB_Time2_Arrival._text,
   
-            firstSouthTrain: data.SB_Time1,
-            firstSouthTrainArrival: data.SB_Time1_Arrival,
+            firstSouthTrain: data.SB_Time1._text,
+            firstSouthTrainArrival: data.SB_Time1_Arrival._text,
   
-            secondSouthTrain: data.SB_Time2,
-            secondSouthTrainArrival: data.SB_Time2_Arrival,
+            secondSouthTrain: data.SB_Time2._text,
+            secondSouthTrainArrival: data.SB_Time2_Arrival._text,
           });
         }
 
+      }).catch(err=>{
+        console.log('error',err)
       });
   };
 
@@ -215,9 +227,12 @@ const TabNavigator = createBottomTabNavigator(
     Home:{
       screen:HomeScreen,
       navigationOptions: {
+        iconStyle:{
+          paddingTop: 30
+        },
         tabBarLabel:"Home",
         tabBarIcon:(
-          <Icon name="ios-home" size={30} color='white' />
+          <Icon name="ios-home" size={30} color='white' containerStyle={{ marginTop: 6 }}/>
         )
       },
     },
@@ -243,7 +258,7 @@ const TabNavigator = createBottomTabNavigator(
       backgroundColor: 'rgba(51, 51, 51, 0.9)',
       },
       labelStyle:{
-      fontSize: 10,
+      fontSize: 12,
       fontWeight: 'bold'
       }
     },
