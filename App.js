@@ -44,26 +44,6 @@ class HomeScreen extends React.Component {
     console.log('move fun ended')
   }
 
-  static navigationOptions  ={
-    headerRight: () => (
-      <Button
-      title="Settings"
-      style={styles.settingsButton}
-      onPress={() => console.log('pressed')}>
-      <Text style={styles.buttonText}>Settings</Text>
-    </Button>
-    ),
-    headerTitle: 'Metro Times',
-    headerStyle: {
-      backgroundColor: 'rgba(51, 51, 51, 0.9)',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      fontSize: 25
-    },
-  };
-
   state = {
     stationName: '',
 
@@ -78,6 +58,9 @@ class HomeScreen extends React.Component {
 
     secondSouthTrain: '',
     secondSouthTrainArrival: '----------',
+
+    
+
   };
   update = async value => {
     // Vibration.vibrate(500)
@@ -86,17 +69,8 @@ class HomeScreen extends React.Component {
         `https://www.miamidade.gov/transit/WebServices/TrainTracker/?StationID=${value}`,
       )
       .then(response => {
-        console.log('hello')
-
-        console.log('response------', response.data)
-
         let convertedXML = convert.xml2js(response.data, {compact: true, spaces: 4})
-        console.log('test-----,', convertedXML)
-
-        var parsedData = JSON.parse(JSON.stringify(convertedXML))
-
-        console.log('parsed data-----', parsedData.RecordSet.Record)
-
+        let parsedData = JSON.parse(JSON.stringify(convertedXML))
         let data = parsedData.RecordSet.Record
 
         if(data.NB_Time1._text === '*****'){
@@ -137,7 +111,6 @@ class HomeScreen extends React.Component {
             secondSouthTrainArrival: data.SB_Time2_Arrival._text,
           });
         }
-
       }).catch(err=>{
         console.log('error',err)
       });
@@ -146,13 +119,9 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <View style={styles.status}>
-          <Text style={styles.appName}>Metro Times</Text>
-        </View> */}
-
         <Text style={styles.stationName}>{this.state.stationName} Station</Text>
         <View style={styles.trainPill} shadowColor={'black'}>
-          <Text style={styles.trainHeader}>Northbound</Text>
+          <Text style={styles.trainHeader}>Northbound {this.props.name}</Text>
           <View style={styles.trainInfo}>
             <Text style={styles.trainNames}>1st Train</Text>
             <Text style={styles.trainNames}>2nd Train</Text>
@@ -196,7 +165,6 @@ class HomeScreen extends React.Component {
 }
 
 class Settings extends React.Component {
-
   static navigationOptions = {
     title: 'Settings',
     headerStyle: {
@@ -212,16 +180,6 @@ class Settings extends React.Component {
   }
 }
 
- const AppNavigator = createStackNavigator(
-  {
-  Home: HomeScreen,
-  Settings: Settings,
-},
-{
-  initialRouteName: 'Home'
-}
-)
-
 const TabNavigator = createBottomTabNavigator(
   {
     Home:{
@@ -236,7 +194,6 @@ const TabNavigator = createBottomTabNavigator(
         )
       },
     },
-
     Settings:{
       screen:Settings,
       navigationOptions: {
@@ -268,8 +225,11 @@ const TabNavigator = createBottomTabNavigator(
 const AppContainer = createAppContainer(TabNavigator)
 
 export default class App extends React.Component{
+  state={
+    name: 'Alex'
+  }
   render () {
-    return <AppContainer/>
+    return <AppContainer name={'alex'}/>
   }}
 
 const styles = StyleSheet.create({
