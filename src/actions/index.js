@@ -1,8 +1,15 @@
 //Action creator
-export const showName = (name) => {
+export const changeName = (name) => {
     //return an action
     return{
-        type: 'SHOW_NAME',
+        type: 'CHANGE_NAME',
         payload: name
+    }
+}
+
+export const changeMorningStation = (station) => {
+    return{
+        type: "CHANGE_MORNING",
+        payload: station
     }
 }

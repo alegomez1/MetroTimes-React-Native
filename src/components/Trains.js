@@ -11,9 +11,10 @@ import {
 import axios from 'axios';
 import train from "../../assets/metroPNG.png"
 import convert from 'xml-js'
+import { connect } from 'react-redux'
 
 
-export default class HomeScreen extends React.Component {
+class Trains extends React.Component {
 
   state = {
     stationName: '',
@@ -87,7 +88,6 @@ export default class HomeScreen extends React.Component {
 
   render() {
 
-    console.log('propssss----', this.props)
     return (
       <View style={styles.container}>
         <Text style={styles.stationName}>{this.state.stationName} Station</Text>
@@ -120,7 +120,7 @@ export default class HomeScreen extends React.Component {
           <TouchableOpacity
             style={styles.button}
             title="Update"
-            onPress={() => this.update('DLN')}>
+            onPress={() => this.update(this.props.state.morningStation)}>
             <Text style={styles.buttonText}>Morning</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -134,6 +134,21 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+
+
+
+
+const mapStateToProps = (state) => {
+  console.log('current state---', state)
+  return { state }
+}
+export default connect(mapStateToProps)(Trains)
+
+
+
+
+
 
 
 const styles = StyleSheet.create({

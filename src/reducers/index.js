@@ -1,12 +1,27 @@
 import {combineReducers} from 'redux'
 
-const selectedName = (selectedName = 'NO NAME', action) => {
-    if(action.type === 'SHOW_NAME'){
+const initialState = () =>{
+return(
+    {name: 'NO NAME LADY'}
+)
+}
+
+const changeName = (name='no name', action) => {
+    if(action.type === 'CHANGE_NAME'){
         return action.payload
     }
-    return selectedName
+    return name
+}
+
+const morningStation = (station='DLN', action) => {
+    if(action.type === 'CHANGE_MORNING'){
+        return action.payload
+    }
+    return station
 }
 
 export default combineReducers({
-    selectedName
+    initialState,
+    changeName,
+    morningStation
 })

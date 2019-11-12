@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react'
+
 import {
   StyleSheet,
   ScrollView,
@@ -9,30 +10,31 @@ import {
   ImageBackground,
 } from 'react-native';
 
-export default class Settings extends React.Component {
+import { connect } from 'react-redux'
 
-  state={
-  valueText: undefined,
-  selectedIndex: null,
-  data: [
-      "Javascript",
-      "Go",
-      "Java",
-      "Kotlin",
-      "C++",
-      "C#",
-      "PHP"
-  ]
-  }
+import { changeName, changeMorningStation } from '../actions'
 
-  render() {
+class Settings extends Component {
+
+  render()
+{
+
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.pageTitle}>Settings</Text>
+        <TouchableOpacity onPress={()=> this.props.changeMorningStation('DLS')}><Text>CLICK ME</Text></TouchableOpacity>
       </ScrollView>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  console.log('current state', state)
+  return { state }
+}
+export default connect(mapStateToProps, {changeName, changeMorningStation})(Settings)
+
+
 
 const styles = StyleSheet.create({
   container: {
