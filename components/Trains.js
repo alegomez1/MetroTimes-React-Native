@@ -86,11 +86,13 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+
+    console.log('propssss----', this.props)
     return (
       <View style={styles.container}>
         <Text style={styles.stationName}>{this.state.stationName} Station</Text>
         <View style={styles.trainPill} shadowColor={'black'}>
-          <Text style={styles.trainHeader}>Northbound {this.props.name}</Text>
+          <Text style={styles.trainHeader}>Northbound</Text>
           <View style={styles.trainInfo}>
             <Text style={styles.trainNames}>1st Train</Text>
             <Text style={styles.trainNames}>2nd Train</Text>

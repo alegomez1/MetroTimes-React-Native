@@ -6,7 +6,9 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 
+
 const tabNavigator = createBottomTabNavigator(
+
   {
         Home:{
           screen: Trains,
@@ -48,4 +50,11 @@ const tabNavigator = createBottomTabNavigator(
       }
 )
 
-export default createAppContainer(tabNavigator)
+
+const AppContainer = createAppContainer(tabNavigator)
+
+export default class App extends React.Component{
+
+  render () {
+    return <AppContainer/>
+  }}
