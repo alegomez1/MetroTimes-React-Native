@@ -161,46 +161,6 @@ export default class HomeScreen extends React.Component {
 //         tabBarLabel:"Home",
 //         tabBarIcon:(
 //           <Icon name="ios-home" size={30} color='white' containerStyle={{ marginTop: 6 }}/>
-//         )
-//       },
-//     },
-//     Settings:{
-//       screen: props => <Settings {...props} />,
-//       navigationOptions: {
-//         tabBarLabel:"Settings",
-//         tabBarIcon:(
-//           <Icon name="ios-settings" size={30} color='white'/>
-//         )
-//       },
-//     },
-//   },
-//   {
-//     tabBarOptions: {
-//       justifyContent: 'center',
-//       alignItems: 'center',
-//       marginTop: 30,
-//       activeTintColor: 'tomato',
-//       inactiveTintColor: 'gray',
-//       style:{
-//       backgroundColor: 'rgba(51, 51, 51, 0.9)',
-//       },
-//       labelStyle:{
-//       fontSize: 12,
-//       fontWeight: 'bold'
-//       }
-//     },
-//   }
-// );
-
-// const AppContainer = createAppContainer(TabNavigator)
-
-// export default class App extends React.Component{
-//   state={
-//     name: 'Alex'
-//   }
-//   render () {
-//     return <AppContainer name={'alex'}/>
-//   }}
 
 const styles = StyleSheet.create({
   container: {
