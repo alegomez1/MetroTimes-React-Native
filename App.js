@@ -5,44 +5,22 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  ImageBackground,
-  Button
+  ImageBackground
 } from 'react-native';
 
 import axios from 'axios';
 import train from "./assets/metroPNG.png"
-
 import convert from 'xml-js'
 
-
 import { createAppContainer } from 'react-navigation'
-import { createStackNavigation, createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import SettingsScreen from './components/Settings'
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {variableDeclaration} from '@babel/types';
 
 class HomeScreen extends React.Component {
-
-  componentDidMount(){
-    // console.log('mounted----', this.props)
-  }
-
-  move(){
-    console.log('move func')
-    // this.props.navigation.navigate('Settings')
-    console.log('move fun ended')
-  }
 
   state = {
     stationName: '',
@@ -58,8 +36,6 @@ class HomeScreen extends React.Component {
 
     secondSouthTrain: '',
     secondSouthTrainArrival: '----------',
-
-    
 
   };
   update = async value => {
@@ -165,6 +141,7 @@ class HomeScreen extends React.Component {
 }
 
 class Settings extends React.Component {
+
   static navigationOptions = {
     title: 'Settings',
     headerStyle: {
@@ -175,7 +152,7 @@ class Settings extends React.Component {
       fontWeight: 'bold',
     },
   };
-  render() {
+  render() { 
     return <SettingsScreen/>;
   }
 }
@@ -183,7 +160,7 @@ class Settings extends React.Component {
 const TabNavigator = createBottomTabNavigator(
   {
     Home:{
-      screen:HomeScreen,
+      screen: props => <HomeScreen {...props} />,
       navigationOptions: {
         iconStyle:{
           paddingTop: 30
@@ -195,7 +172,7 @@ const TabNavigator = createBottomTabNavigator(
       },
     },
     Settings:{
-      screen:Settings,
+      screen: props => <Settings {...props} />,
       navigationOptions: {
         tabBarLabel:"Settings",
         tabBarIcon:(

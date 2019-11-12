@@ -12,7 +12,6 @@ import {
 export default class Settings extends React.Component {
 
   state={
-    //Picker Data
   valueText: undefined,
   selectedIndex: null,
   data: [
@@ -30,7 +29,6 @@ export default class Settings extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.pageTitle}>Settings</Text>
-
       </ScrollView>
     );
   }
@@ -50,4 +48,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
   },
+  text:{
+    color: 'white'
+  }
 });
