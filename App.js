@@ -5,64 +5,22 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  ImageBackground,
-  Button
+  ImageBackground
 } from 'react-native';
 
 import axios from 'axios';
 import train from "./assets/metroPNG.png"
-
 import convert from 'xml-js'
 
-
 import { createAppContainer } from 'react-navigation'
-import { createStackNavigation, createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import SettingsScreen from './components/Settings'
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {variableDeclaration} from '@babel/types';
 
 class HomeScreen extends React.Component {
-
-  componentDidMount(){
-    // console.log('mounted----', this.props)
-  }
-
-  move(){
-    console.log('move func')
-    // this.props.navigation.navigate('Settings')
-    console.log('move fun ended')
-  }
-
-  static navigationOptions  ={
-    headerRight: () => (
-      <Button
-      title="Settings"
-      style={styles.settingsButton}
-      onPress={() => console.log('pressed')}>
-      <Text style={styles.buttonText}>Settings</Text>
-    </Button>
-    ),
-    headerTitle: 'Metro Times',
-    headerStyle: {
-      backgroundColor: 'rgba(51, 51, 51, 0.9)',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      fontSize: 25
-    },
-  };
 
   state = {
     stationName: '',
@@ -78,6 +36,7 @@ class HomeScreen extends React.Component {
 
     secondSouthTrain: '',
     secondSouthTrainArrival: '----------',
+
   };
   update = async value => {
     // Vibration.vibrate(500)
@@ -86,17 +45,8 @@ class HomeScreen extends React.Component {
         `https://www.miamidade.gov/transit/WebServices/TrainTracker/?StationID=${value}`,
       )
       .then(response => {
-        console.log('hello')
-
-        console.log('response------', response.data)
-
         let convertedXML = convert.xml2js(response.data, {compact: true, spaces: 4})
-        console.log('test-----,', convertedXML)
-
-        var parsedData = JSON.parse(JSON.stringify(convertedXML))
-
-        console.log('parsed data-----', parsedData.RecordSet.Record)
-
+        let parsedData = JSON.parse(JSON.stringify(convertedXML))
         let data = parsedData.RecordSet.Record
 
         if(data.NB_Time1._text === '*****'){
@@ -137,7 +87,6 @@ class HomeScreen extends React.Component {
             secondSouthTrainArrival: data.SB_Time2_Arrival._text,
           });
         }
-
       }).catch(err=>{
         console.log('error',err)
       });
@@ -146,13 +95,9 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <View style={styles.status}>
-          <Text style={styles.appName}>Metro Times</Text>
-        </View> */}
-
         <Text style={styles.stationName}>{this.state.stationName} Station</Text>
         <View style={styles.trainPill} shadowColor={'black'}>
-          <Text style={styles.trainHeader}>Northbound</Text>
+          <Text style={styles.trainHeader}>Northbound {this.props.name}</Text>
           <View style={styles.trainInfo}>
             <Text style={styles.trainNames}>1st Train</Text>
             <Text style={styles.trainNames}>2nd Train</Text>
@@ -207,25 +152,15 @@ class Settings extends React.Component {
       fontWeight: 'bold',
     },
   };
-  render() {
+  render() { 
     return <SettingsScreen/>;
   }
 }
 
- const AppNavigator = createStackNavigator(
-  {
-  Home: HomeScreen,
-  Settings: Settings,
-},
-{
-  initialRouteName: 'Home'
-}
-)
-
 const TabNavigator = createBottomTabNavigator(
   {
     Home:{
-      screen:HomeScreen,
+      screen: props => <HomeScreen {...props} />,
       navigationOptions: {
         iconStyle:{
           paddingTop: 30
@@ -236,9 +171,8 @@ const TabNavigator = createBottomTabNavigator(
         )
       },
     },
-
     Settings:{
-      screen:Settings,
+      screen: props => <Settings {...props} />,
       navigationOptions: {
         tabBarLabel:"Settings",
         tabBarIcon:(
@@ -268,8 +202,11 @@ const TabNavigator = createBottomTabNavigator(
 const AppContainer = createAppContainer(TabNavigator)
 
 export default class App extends React.Component{
+  state={
+    name: 'Alex'
+  }
   render () {
-    return <AppContainer/>
+    return <AppContainer name={'alex'}/>
   }}
 
 const styles = StyleSheet.create({
