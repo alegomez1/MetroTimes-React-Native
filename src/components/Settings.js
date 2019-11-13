@@ -7,9 +7,8 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  ImageBackground,
-  Picker,
   Modal,
+  Switch
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -18,6 +17,7 @@ import {
   changeName,
   changeMorningStation,
   changeEveningStation,
+  toggleDarkMode
 } from '../actions';
 
 class Settings extends Component {
@@ -43,8 +43,11 @@ class Settings extends Component {
   };
 
   render() {
+
+    // console.log('props---', this.props)
+    const darkMode = this.props.state.darkMode
     return (
-      <View style={styles.container}>
+      <View style={darkMode? styles.container : styles.containerLight}>
         {/* Morning Station Modal Start */}
         <Modal
           animationType="slide"
@@ -240,34 +243,50 @@ class Settings extends Component {
           </View>
         </Modal>
         {/* Evening Station Modal End */}
-        <Text style={styles.pageTitle}>Settings</Text>
+        <Text style={darkMode ? styles.pageTitle : styles.pageTitleLight}>Settings</Text>
 
 
-        <Text style={styles.settingsHeader}>Change stations</Text>
-        <View style={styles.itemContainer}>
+        <Text style={darkMode ? styles.settingsHeader : styles.settingsHeaderLight}>Change stations</Text>
+        <View style={darkMode ? styles.itemContainer : styles.itemContainerLight}>
           <TouchableOpacity onPress={() => this.setModalVisible(true)}>
-            <Text style={styles.settingsOption}>
+            <Text style={darkMode ? styles.settingsOption : styles.settingsOptionLight}>
               Change Morning Station
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.setModalVisible(true)}>
-            <Text style={styles.settingsOptionRight}>
+            <Text style={darkMode ? styles.settingsOptionRight : styles.settingsOptionRightLight}>
               {this.props.state.morningStation}
             </Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.itemContainer}>
+        <View style={darkMode ? styles.itemContainer : styles.itemContainerLight}>
         <TouchableOpacity onPress={() => this.setModalVisible2(true)}>
-          <Text style={styles.settingsOption}>
+          <Text style={darkMode ? styles.settingsOption : styles.settingsOptionLight}>
             Change Evening Station
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.setModalVisible2(true)}>
-          <Text style={styles.settingsOptionRight}>
+          <Text style={darkMode ? styles.settingsOptionRight : styles.settingsOptionRightLight}>
             {this.props.state.eveningStation}
           </Text>
         </TouchableOpacity>
+        </View>
+
+        <Text style={darkMode ? styles.settingsHeader : styles.settingsHeaderLight}>Dark Mode</Text>
+
+        <View style={darkMode ? styles.itemContainer : styles.itemContainerLight}>
+          <TouchableOpacity onPress={() => this.setModalVisible(true)}>
+            <Text style={darkMode ? styles.settingsOption : styles.settingsOptionLight}>
+              Dark Mode
+            </Text>
+          </TouchableOpacity>
+
+        <Switch
+        value={this.props.state.darkMode}
+        onChange={()=> this.props.toggleDarkMode(!this.props.state.darkMode)}
+        ></Switch>
+
         </View>
       </View>
     );
@@ -275,13 +294,13 @@ class Settings extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('current state', state);
   return {state};
 };
 export default connect(mapStateToProps, {
   changeName,
   changeMorningStation,
   changeEveningStation,
+  toggleDarkMode
 })(Settings);
 
 const styles = StyleSheet.create({
@@ -289,10 +308,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
     height: Dimensions.get('window').height,
   },
-
   container: {
+    paddingTop: 40,
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    height: Dimensions.get('window').height,
+  },
+  containerLight:{
+    paddingTop: 40,
+    flex: 1,
+    backgroundColor: '#dbdbdb',
     height: Dimensions.get('window').height,
   },
   pageTitle: {
@@ -301,6 +326,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
     color: 'white',
+  },
+  pageTitleLight: {
+    fontFamily: 'AppleSDGothicNeo-Bold',
+    marginTop: 40,
+    fontSize: 30,
+    textAlign: 'center',
+    color: 'black',
   },
   text: {
     color: 'white',
@@ -340,8 +372,21 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 30,
   },
+  settingsHeaderLight:{
+    color: '#7c7c7c',
+    fontSize: 18,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginTop: 30,
+  },
   settingsOption: {
     color: 'white',
+    fontSize: 18,
+    marginLeft: 20,
+    // marginTop: 20,
+  },
+  settingsOptionLight: {
+    color: 'black',
     fontSize: 18,
     marginLeft: 20,
     // marginTop: 20,
@@ -352,14 +397,27 @@ const styles = StyleSheet.create({
     marginRight: 20,
     // marginTop: 20,
   },
+  settingsOptionRightLight: {
+    color: '#898989',
+    fontSize: 18,
+    marginRight: 20,
+    // marginTop: 20,
+  },
   itemContainer: {
     height: 50,
     flexDirection: 'row',
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // borderTopColor: 'white',
-    // borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: 'white'
+  },
+  itemContainerLight: {
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: '#c4c4c4',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: 'white'
   },

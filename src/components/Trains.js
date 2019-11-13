@@ -88,46 +88,48 @@ class Trains extends React.Component {
 
   render() {
 
+    const darkMode = this.props.state.darkMode
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.stationName}>{this.state.stationName} Station</Text>
-        <View style={styles.trainPill} shadowColor={'black'}>
-          <Text style={styles.trainHeader}>Northbound</Text>
+      <View style={darkMode ? styles.container : styles.containerLight}>
+        <Text style={[styles.stationName, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>{this.state.stationName} Station</Text>
+        <View style={darkMode ? styles.trainPill : styles.trainPillLight} shadowColor={'black'}>
+          <Text style={[styles.trainHeader, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>Northbound</Text>
           <View style={styles.trainInfo}>
-            <Text style={styles.trainNames}>1st Train</Text>
-            <Text style={styles.trainNames}>2nd Train</Text>
+            <Text style={[styles.trainNames, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>1st Train</Text>
+            <Text style={[styles.trainNames, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>2nd Train</Text>
           </View>
           <View style={styles.trainInfo}>
-            <Text style={styles.trainTimes} >{this.state.firstNorthTrainArrival}</Text>
-            <Text style={styles.trainTimes}>{this.state.secondNorthTrainArrival}</Text>
+            <Text style={[styles.trainTimes, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]} >{this.state.firstNorthTrainArrival}</Text>
+            <Text style={[styles.trainTimes, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>{this.state.secondNorthTrainArrival}</Text>
           </View>
         </View>
         <ImageBackground style={styles.image} source={train}></ImageBackground>
-        <View style={styles.trainPill} shadowColor={'black'}>
-          <Text style={styles.trainHeader}>Southbound</Text>
+        <View style={darkMode ? styles.trainPill : styles.trainPillLight} shadowColor={'black'}>
+          <Text style={[styles.trainHeader, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>Southbound</Text>
           <View style={styles.trainInfo}>
-            <Text style={styles.trainNames}>1st Train</Text>
-            <Text style={styles.trainNames}>2nd Train</Text>
+            <Text style={[styles.trainNames, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>1st Train</Text>
+            <Text style={[styles.trainNames, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>2nd Train</Text>
           </View>
 
           <View style={styles.trainInfo}>
-            <Text style={styles.trainTimes}>{this.state.firstSouthTrainArrival}</Text>
-            <Text style={styles.trainTimes}>{this.state.secondSouthTrainArrival}</Text>
+            <Text style={[styles.trainTimes, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>{this.state.firstSouthTrainArrival}</Text>
+            <Text style={[styles.trainTimes, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>{this.state.secondSouthTrainArrival}</Text>
           </View>
         </View>
         
         <View style={styles.timeOfDay}>
           <TouchableOpacity
-            style={styles.button}
+            style={darkMode ? styles.button : styles.buttonLight}
             title="Update"
             onPress={() => this.update(this.props.state.morningStation)}>
-            <Text style={styles.buttonText}>Morning</Text>
+            <Text style={[styles.buttonText, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>Morning</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.button}
+            style={darkMode ? styles.button : styles.buttonLight}
             title="Update"
             onPress={() => this.update(this.props.state.eveningStation)}>
-            <Text style={styles.buttonText}>Evening</Text>
+            <Text style={[styles.buttonText, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>Evening</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -138,7 +140,7 @@ class Trains extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  console.log('current state---', state)
+  // console.log('current state---', state)
   return { state }
 }
 export default connect(mapStateToProps)(Trains)
@@ -150,10 +152,22 @@ export default connect(mapStateToProps)(Trains)
 
 
 const styles = StyleSheet.create({
+  darkModeTextColor:{
+    color: 'white'
+  },
+  lightModeTextColor:{
+    color: 'black'
+  },
   container: {
     flex: 1,
     paddingTop: 40,
     backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    height: Dimensions.get('window').height,
+  },
+  containerLight: {
+    flex: 1,
+    paddingTop: 40,
+    backgroundColor: '#dbdbdb',
     height: Dimensions.get('window').height,
   },
   status: {
@@ -186,7 +200,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
     fontSize: 30,
     textAlign: 'center',
-    color: 'white'
   },
   timeOfDay: {
     flexDirection: 'row',
@@ -197,9 +210,27 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   button: {
-    // backgroundColor: 'white',
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
+    width: 100,
+    height: 40,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:10,
+    margin: 40,
 
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+    buttonLight: {
+    backgroundColor: '#c4c4c4',
     width: 100,
     height: 40,
     textAlign: 'center',
@@ -224,9 +255,26 @@ const styles = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-Bold',
   },
   trainPill: {
-    // backgroundColor: 'white',
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
+    marginTop: 30,
+    marginBottom: 20,
+    height: 150,
+    borderRadius: 10,
+    marginLeft: 10,
+    marginRight: 10,
 
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+  trainPillLight: {
+    backgroundColor: '#c4c4c4',
     marginTop: 30,
     marginBottom: 20,
     height: 150,

@@ -20,3 +20,10 @@ export const changeEveningStation = (station) => {
         payload: station
     }
 }
+
+export const toggleDarkMode = (toggle) => {
+    return{
+        type: "TOGGLE_DARK_MODE",
+        payload: toggle
+    }
+}
