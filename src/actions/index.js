@@ -13,3 +13,17 @@ export const changeMorningStation = (station) => {
         payload: station
     }
 }
+
+export const changeEveningStation = (station) => {
+    return{
+        type: "CHANGE_EVENING",
+        payload: station
+    }
+}
+
+export const toggleDarkMode = (toggle) => {
+    return{
+        type: "TOGGLE_DARK_MODE",
+        payload: toggle
+    }
+}

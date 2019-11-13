@@ -9,7 +9,6 @@ import { Provider, connect } from 'react-redux';
 import reducer from './src/reducers'
 
 
-
 const tabNavigator = createBottomTabNavigator(
 
   {

@@ -20,8 +20,24 @@ const morningStation = (station='DLN', action) => {
     return station
 }
 
+const eveningStation = (station='BLK', action) => {
+    if(action.type === 'CHANGE_EVENING'){
+        return action.payload
+    }
+    return station
+}
+
+const darkMode = (darkMode=true, action) => {
+    if(action.type === 'TOGGLE_DARK_MODE'){
+        return action.payload
+    }
+    return darkMode
+}
+
 export default combineReducers({
     initialState,
     changeName,
-    morningStation
+    morningStation,
+    eveningStation,
+    darkMode
 })
