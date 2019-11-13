@@ -293,7 +293,7 @@ class Settings extends Component {
 
         <Text
           style={darkMode ? styles.settingsHeader : styles.settingsHeaderLight}>
-          Dark Mode
+          Display
         </Text>
 
         <View
@@ -409,25 +409,21 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     marginLeft: 20,
-    // marginTop: 20,
   },
   settingsOptionLight: {
-    color: 'black',
+    color: '#3d3d3d',
     fontSize: 18,
     marginLeft: 20,
-    // marginTop: 20,
   },
   settingsOptionRight: {
     color: '#adadad',
     fontSize: 18,
     marginRight: 20,
-    // marginTop: 20,
   },
   settingsOptionRightLight: {
     color: '#898989',
     fontSize: 18,
     marginRight: 20,
-    // marginTop: 20,
   },
   settingsTab: {
     backgroundColor: 'red',

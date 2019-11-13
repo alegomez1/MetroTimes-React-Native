@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   lightModeTextColor:{
-    color: 'black'
+    color: '#3d3d3d',
   },
   container: {
     flex: 1,
