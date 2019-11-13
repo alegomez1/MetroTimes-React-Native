@@ -320,8 +320,8 @@ const styles = StyleSheet.create({
   },
   modal: {
     borderRadius: 40,
-    width: 400,
-    height: 400,
+    width: 300,
+    height: 300,
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
     color: 'white',
   },
@@ -334,10 +334,10 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   settingsHeader:{
-    color: 'white',
+    color: '#adadad',
     fontSize: 18,
     marginBottom: 10,
-    marginLeft: 10,
+    marginLeft: 20,
     marginTop: 30,
   },
   settingsOption: {
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
     // marginTop: 20,
   },
   settingsOptionRight: {
-    color: 'white',
+    color: '#adadad',
     fontSize: 18,
     marginRight: 20,
     // marginTop: 20,
