@@ -137,8 +137,6 @@ class Trains extends React.Component {
 
 
 
-
-
 const mapStateToProps = (state) => {
   console.log('current state---', state)
   return { state }

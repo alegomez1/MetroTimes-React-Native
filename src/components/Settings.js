@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react';
 
 import {
   StyleSheet,
@@ -8,33 +8,74 @@ import {
   Dimensions,
   TouchableOpacity,
   ImageBackground,
+  Picker,
+  Modal,
 } from 'react-native';
 
-import { connect } from 'react-redux'
+import {connect} from 'react-redux';
 
-import { changeName, changeMorningStation } from '../actions'
+import {changeName, changeMorningStation} from '../actions';
 
 class Settings extends Component {
+  state = {
+    viewModal: false,
+  };
 
-  render()
-{
+  setModalVisible(visible) {
+    this.setState({viewModal: visible});
+  }
 
+  render() {
+    const data = [
+      {label: 'Dadeland South', value: 'DLS'},
+      {label: 'Dadeland North', value: 'DLN'},
+      {label: 'Brickell', value: 'BLK'},
+    ];
     return (
       <ScrollView style={styles.container}>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.viewModal}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+
+            <View
+            >
+            <TouchableOpacity
+          onPress={() => this.props.changeMorningStation('DLS')}>
+          <Text style={styles.clickMe}>CLICK ME</Text>
+        </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(false);
+                }}>
+                <Text>Hide Modal</Text>
+              </TouchableOpacity>
+            </View>
+
+        </Modal>
+
         <Text style={styles.pageTitle}>Settings</Text>
-        <TouchableOpacity onPress={()=> this.props.changeMorningStation('DLS')}><Text>CLICK ME</Text></TouchableOpacity>
+
+
+        <TouchableOpacity onPress={() => this.setModalVisible(true)}>
+          <Text style={styles.pageTitle}>SHOW MODAL</Text>
+        </TouchableOpacity>
       </ScrollView>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log('current state', state)
-  return { state }
-}
-export default connect(mapStateToProps, {changeName, changeMorningStation})(Settings)
-
-
+const mapStateToProps = state => {
+  console.log('current state', state);
+  return {state};
+};
+export default connect(mapStateToProps, {changeName, changeMorningStation})(
+  Settings,
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -50,7 +91,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
   },
-  text:{
-    color: 'white'
+  text: {
+    color: 'white',
+  },
+  clickMe: {
+    color: 'black',
+    textAlign: "center",
+    fontSize: 20,
+    marginTop: 50
+  },
+  modal:{
+    width: 100,
+    height: 100,
+    backgroundColor: 'red'
   }
 });
