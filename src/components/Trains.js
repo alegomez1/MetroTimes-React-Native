@@ -332,33 +332,3 @@ const styles = StyleSheet.create({
     height: 80,
   }
 });
-
-
-// class Settings extends React.Component {
-
-//   static navigationOptions = {
-//     title: 'Settings',
-//     headerStyle: {
-//       backgroundColor: 'rgba(51, 51, 51, 0.9)',
-//     },
-//     headerTintColor: '#fff',
-//     headerTitleStyle: {
-//       fontWeight: 'bold',
-//     },
-//   };
-//   render() { 
-//     return <SettingsScreen/>;
-//   }
-// }
-
-// const TabNavigator = createBottomTabNavigator(
-//   {
-//     Home:{
-//       screen: props => <HomeScreen {...props} />,
-//       navigationOptions: {
-//         iconStyle:{
-//           paddingTop: 30
-//         },
-//         tabBarLabel:"Home",
-//         tabBarIcon:(
-//           <Icon name="ios-home" size={30} color='white' containerStyle={{ marginTop: 6 }}/>
