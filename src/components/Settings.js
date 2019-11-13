@@ -14,13 +14,16 @@ import {
 
 import {connect} from 'react-redux';
 
-import {changeName, changeMorningStation, changeEveningStation} from '../actions';
+import {
+  changeName,
+  changeMorningStation,
+  changeEveningStation,
+} from '../actions';
 
 class Settings extends Component {
   state = {
     viewModal: false,
     viewModal2: false,
-
   };
 
   setModalVisible(visible) {
@@ -41,8 +44,8 @@ class Settings extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-      {/* Morning Station Modal Start */}
+      <View style={styles.container}>
+        {/* Morning Station Modal Start */}
         <Modal
           animationType="slide"
           transparent={true}
@@ -138,11 +141,10 @@ class Settings extends Component {
             </View>
           </View>
         </Modal>
-      {/* Morning Station Modal End */}
+        {/* Morning Station Modal End */}
 
-
-            {/* Evening Station Modal Start */}
-            <Modal
+        {/* Evening Station Modal Start */}
+        <Modal
           animationType="slide"
           transparent={true}
           visible={this.state.viewModal2}
@@ -237,23 +239,37 @@ class Settings extends Component {
             </View>
           </View>
         </Modal>
-      {/* Evening Station Modal End */}
+        {/* Evening Station Modal End */}
+        <Text style={styles.pageTitle}>Settings</Text>
 
-        <View style={styles.pageTitleContainer}>
-          <Text style={styles.pageTitle}>Settings</Text>
+
+        <Text style={styles.settingsHeader}>Change stations</Text>
+        <View style={styles.itemContainer}>
+          <TouchableOpacity onPress={() => this.setModalVisible(true)}>
+            <Text style={styles.settingsOption}>
+              Change Morning Station
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.setModalVisible(true)}>
+            <Text style={styles.settingsOptionRight}>
+              {this.props.state.morningStation}
+            </Text>
+          </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={() => this.setModalVisible(true)}>
+        <View style={styles.itemContainer}>
+        <TouchableOpacity onPress={() => this.setModalVisible2(true)}>
           <Text style={styles.settingsOption}>
-            Set Morning Station : {this.props.state.morningStation}
+            Change Evening Station
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.setModalVisible2(true)}>
-          <Text style={styles.settingsOption}>
-            Set Evening Station : {this.props.state.eveningStation}
+          <Text style={styles.settingsOptionRight}>
+            {this.props.state.eveningStation}
           </Text>
         </TouchableOpacity>
-      </ScrollView>
+        </View>
+      </View>
     );
   }
 }
@@ -262,22 +278,22 @@ const mapStateToProps = state => {
   console.log('current state', state);
   return {state};
 };
-export default connect(mapStateToProps, {changeName, changeMorningStation, changeEveningStation})(
-  Settings,
-);
+export default connect(mapStateToProps, {
+  changeName,
+  changeMorningStation,
+  changeEveningStation,
+})(Settings);
 
 const styles = StyleSheet.create({
-  container: {
-    zIndex: 1,
-    flex: 1,
-    paddingTop: 40,
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+  backgroundContainer: {
+    backgroundColor: 'rgba(51, 51, 51, 0.9)',
     height: Dimensions.get('window').height,
   },
-  pageTitleContainer: {
-    // backgroundColor: 'red',
+
+  container: {
     flex: 1,
-    marginTop: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    height: Dimensions.get('window').height,
   },
   pageTitle: {
     fontFamily: 'AppleSDGothicNeo-Bold',
@@ -317,10 +333,34 @@ const styles = StyleSheet.create({
     marginRight: 40,
     fontSize: 17,
   },
+  settingsHeader:{
+    color: 'white',
+    fontSize: 18,
+    marginBottom: 10,
+    marginLeft: 10,
+    marginTop: 30,
+  },
   settingsOption: {
     color: 'white',
     fontSize: 18,
     marginLeft: 20,
-    marginTop: 20,
+    // marginTop: 20,
+  },
+  settingsOptionRight: {
+    color: 'white',
+    fontSize: 18,
+    marginRight: 20,
+    // marginTop: 20,
+  },
+  itemContainer: {
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(51, 51, 51, 0.9)',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // borderTopColor: 'white',
+    // borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: 'white'
   },
 });
