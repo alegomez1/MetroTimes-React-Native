@@ -126,7 +126,7 @@ class Trains extends React.Component {
           <TouchableOpacity
             style={styles.button}
             title="Update"
-            onPress={() => this.update('BLK')}>
+            onPress={() => this.update(this.props.state.eveningStation)}>
             <Text style={styles.buttonText}>Evening</Text>
           </TouchableOpacity>
         </View>
