@@ -9,11 +9,12 @@ import {
 } from 'react-native';
 
 import axios from 'axios';
-import train from "../assets/metroPNG.png"
+import train from "../../assets/metroPNG.png"
 import convert from 'xml-js'
+import { connect } from 'react-redux'
 
 
-export default class HomeScreen extends React.Component {
+class Trains extends React.Component {
 
   state = {
     stationName: '',
@@ -87,7 +88,6 @@ export default class HomeScreen extends React.Component {
 
   render() {
 
-    console.log('propssss----', this.props)
     return (
       <View style={styles.container}>
         <Text style={styles.stationName}>{this.state.stationName} Station</Text>
@@ -120,7 +120,7 @@ export default class HomeScreen extends React.Component {
           <TouchableOpacity
             style={styles.button}
             title="Update"
-            onPress={() => this.update('DLN')}>
+            onPress={() => this.update(this.props.state.morningStation)}>
             <Text style={styles.buttonText}>Morning</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -135,34 +135,19 @@ export default class HomeScreen extends React.Component {
   }
 }
 
-// class Settings extends React.Component {
 
-//   static navigationOptions = {
-//     title: 'Settings',
-//     headerStyle: {
-//       backgroundColor: 'rgba(51, 51, 51, 0.9)',
-//     },
-//     headerTintColor: '#fff',
-//     headerTitleStyle: {
-//       fontWeight: 'bold',
-//     },
-//   };
-//   render() { 
-//     return <SettingsScreen/>;
-//   }
-// }
 
-// const TabNavigator = createBottomTabNavigator(
-//   {
-//     Home:{
-//       screen: props => <HomeScreen {...props} />,
-//       navigationOptions: {
-//         iconStyle:{
-//           paddingTop: 30
-//         },
-//         tabBarLabel:"Home",
-//         tabBarIcon:(
-//           <Icon name="ios-home" size={30} color='white' containerStyle={{ marginTop: 6 }}/>
+const mapStateToProps = (state) => {
+  console.log('current state---', state)
+  return { state }
+}
+export default connect(mapStateToProps)(Trains)
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -300,3 +285,32 @@ const styles = StyleSheet.create({
   }
 });
 
+
+// class Settings extends React.Component {
+
+//   static navigationOptions = {
+//     title: 'Settings',
+//     headerStyle: {
+//       backgroundColor: 'rgba(51, 51, 51, 0.9)',
+//     },
+//     headerTintColor: '#fff',
+//     headerTitleStyle: {
+//       fontWeight: 'bold',
+//     },
+//   };
+//   render() { 
+//     return <SettingsScreen/>;
+//   }
+// }
+
+// const TabNavigator = createBottomTabNavigator(
+//   {
+//     Home:{
+//       screen: props => <HomeScreen {...props} />,
+//       navigationOptions: {
+//         iconStyle:{
+//           paddingTop: 30
+//         },
+//         tabBarLabel:"Home",
+//         tabBarIcon:(
+//           <Icon name="ios-home" size={30} color='white' containerStyle={{ marginTop: 6 }}/>
