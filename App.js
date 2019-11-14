@@ -2,11 +2,16 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createAppContainer } from 'react-navigation'
 import Trains from './src/components/Trains'
 import Settings from './src/components/Settings'
+import AsyncStorage from 'react-native'
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons'
-import { createStore } from 'redux';
+// import { createStore } from 'redux';
+import { store } from './src/store'
 import { Provider, connect } from 'react-redux';
-import reducer from './src/reducers'
+
+// import reducer from './src/reducers'
+// import { persistStore, persistReducer } from 'redux-persist'
+// import { PersistGate } from 'redux-persist/integration/react'
 
 
 const tabNavigator = createBottomTabNavigator(
@@ -55,7 +60,6 @@ const tabNavigator = createBottomTabNavigator(
 
 const AppContainer = createAppContainer(tabNavigator)
 
-const store = createStore(reducer)
 
 export default class App extends React.Component{
 

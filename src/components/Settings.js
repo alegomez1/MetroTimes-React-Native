@@ -11,7 +11,6 @@ import {
 
 } from 'react-native';
 
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import {connect} from 'react-redux';
 
 import {
@@ -237,13 +236,7 @@ class Settings extends Component {
             Alert.alert('Modal has been closed.');
           }}>
           <View style={styles.modalContainer}>
-          <GestureRecognizer
-        config={config}
-        onSwipeDown={()=> {
-                  this.setModalVisible2(false)}}
-        style={{
-        }} >
-                </GestureRecognizer>
+
             <View style={darkMode ? styles.modal : styles.modalLight}>
               <View style={darkMode ? styles.exitContainer : styles.exitContainerLight }>
                 <TouchableOpacity 
