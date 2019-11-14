@@ -31,6 +31,23 @@ class Trains extends React.Component {
     secondSouthTrainArrival: '----------',
 
   };
+
+  componentDidMount = () =>{
+    // console.log('mounted', this.props)
+    this.update(this.props.state.morningStation)
+    this.update(this.props.state.eveningStation)
+  }
+  componentWillUpdate=()=>{
+  }
+  componentDidUpdate=()=>{
+
+    setTimeout(() => {
+    // console.log('will update')
+    // this.update(this.props.state.morningStation)
+    // this.update(this.props.state.eveningStation)
+      
+    }, 100);
+  }
   update = async value => {
     // Vibration.vibrate(500)
    await axios
