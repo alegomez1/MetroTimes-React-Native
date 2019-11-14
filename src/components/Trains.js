@@ -13,7 +13,6 @@ import train from "../../assets/metroPNG.png"
 import convert from 'xml-js'
 import { connect } from 'react-redux'
 
-
 class Trains extends React.Component {
 
   state = {
