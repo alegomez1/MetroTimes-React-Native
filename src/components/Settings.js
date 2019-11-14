@@ -8,8 +8,10 @@ import {
   TouchableOpacity,
   Modal,
   Switch,
+
 } from 'react-native';
 
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import {connect} from 'react-redux';
 
 import {
@@ -41,7 +43,16 @@ class Settings extends Component {
     this.setModalVisible2(false);
   };
 
+
+  onSwipeDown = () =>{
+    console.log('swiped down')
+  }
+
   render() {
+    const config = {
+      velocityThreshold: 0.1,
+      directionalOffsetThreshold: 40
+    };
     // console.log('props---', this.props)
     const darkMode = this.props.state.darkMode;
     return (
@@ -54,18 +65,46 @@ class Settings extends Component {
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
+
+  
           <View style={styles.modalContainer}>
+          <TouchableOpacity style={styles.secret}
+           onPress={() => {
+                  this.setModalVisible(false)}}>
+          </TouchableOpacity>
             <View style={styles.modal}>
+
+
+            {/* <GestureRecognizer
+        config={config}
+        onSwipeDown={()=> this.props.toggleDarkMode(!this.props.state.darkMode)}
+        onSwipeLeft={()=> this.props.toggleDarkMode(!this.props.state.darkMode)}
+        onSwipeRight={()=> this.props.toggleDarkMode(!this.props.state.darkMode)}
+        style={{
+          width: 800, height: 50, 
+        }} > */}
               <View style={styles.exitContainer }>
+              <View>
                 <TouchableOpacity 
                 style={styles.exitButton}
                 onPress={() => {
                   this.setModalVisible(false)
-                  
                 }}>
                 <Text style={styles.doneText}>Exit</Text>
+
                 </TouchableOpacity>
               </View>
+              </View>
+                {/* </GestureRecognizer> */}
+
+
+
+              
+
+
+
+
+
               <ScrollView style={styles.testHeight}>
                 <TouchableOpacity onPress={() => this.setMorningStation('ALP')}
                 style={styles.stationItem}
@@ -190,6 +229,7 @@ class Settings extends Component {
                 </TouchableOpacity>
               </ScrollView>
             </View>
+
           </View>
         </Modal>
         {/* Morning Station Modal End */}
@@ -203,6 +243,10 @@ class Settings extends Component {
             Alert.alert('Modal has been closed.');
           }}>
           <View style={styles.modalContainer}>
+          <TouchableOpacity style={styles.secret}
+           onPress={() => {
+                  this.setModalVisible2(false)}}>
+          </TouchableOpacity>
             <View style={styles.modal}>
               <View style={styles.exitContainer }>
                 <TouchableOpacity 
@@ -432,6 +476,12 @@ export default connect(mapStateToProps, {
 })(Settings);
 
 const styles = StyleSheet.create({
+  secret:{
+    width: Dimensions.get('window').width,
+    height: 295,
+    // backgroundColor: 'red',
+    zIndex: 5
+  },
   backgroundContainer: {
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
     height: Dimensions.get('window').height,
@@ -483,7 +533,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modal: {
-    marginTop: 300,
+    // marginTop: 300,
+    zIndex: 10,
     borderRadius: 20,
     width: 400,
     height: 600,
@@ -498,12 +549,14 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     height: 50,
-    justifyContent: "center"
+    justifyContent: "center",
+    width: 400
   },
   exitButton:{
-    // backgroundColor: 'blue',
+    // backgroundColor: 'green',
+    // width: 400,
     width: 80,
-    height: 40,
+    height: 50,
     justifyContent: "center"
   },
   doneText: {
