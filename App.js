@@ -6,12 +6,13 @@ import AsyncStorage from 'react-native'
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons'
 // import { createStore } from 'redux';
-import { store } from './src/store'
+import { store, persistor } from './src/store'
 import { Provider, connect } from 'react-redux';
 
 // import reducer from './src/reducers'
 // import { persistStore, persistReducer } from 'redux-persist'
-// import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react'
+
 
 
 const tabNavigator = createBottomTabNavigator(
@@ -66,7 +67,9 @@ export default class App extends React.Component{
   render () {
     return (
     <Provider store={store}>
+    <PersistGate persistor={persistor} loading={console.log('loading')}>
     <AppContainer/>
+    </PersistGate>
     </Provider>
     )
   }}
