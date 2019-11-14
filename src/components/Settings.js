@@ -68,21 +68,21 @@ class Settings extends Component {
 
   
           <View style={styles.modalContainer}>
+          <GestureRecognizer
+        config={config}
+        onSwipeDown={()=> {
+                  this.setModalVisible(false)}}
+        style={{
+        }} >
           <TouchableOpacity style={styles.secret}
            onPress={() => {
                   this.setModalVisible(false)}}>
           </TouchableOpacity>
+                </GestureRecognizer>
             <View style={styles.modal}>
 
 
-            {/* <GestureRecognizer
-        config={config}
-        onSwipeDown={()=> this.props.toggleDarkMode(!this.props.state.darkMode)}
-        onSwipeLeft={()=> this.props.toggleDarkMode(!this.props.state.darkMode)}
-        onSwipeRight={()=> this.props.toggleDarkMode(!this.props.state.darkMode)}
-        style={{
-          width: 800, height: 50, 
-        }} > */}
+
               <View style={styles.exitContainer }>
               <View>
                 <TouchableOpacity 
@@ -95,7 +95,6 @@ class Settings extends Component {
                 </TouchableOpacity>
               </View>
               </View>
-                {/* </GestureRecognizer> */}
 
 
 
@@ -243,10 +242,17 @@ class Settings extends Component {
             Alert.alert('Modal has been closed.');
           }}>
           <View style={styles.modalContainer}>
+          <GestureRecognizer
+        config={config}
+        onSwipeDown={()=> {
+                  this.setModalVisible2(false)}}
+        style={{
+        }} >
           <TouchableOpacity style={styles.secret}
            onPress={() => {
                   this.setModalVisible2(false)}}>
           </TouchableOpacity>
+                </GestureRecognizer>
             <View style={styles.modal}>
               <View style={styles.exitContainer }>
                 <TouchableOpacity 
