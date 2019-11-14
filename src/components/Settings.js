@@ -33,7 +33,6 @@ class Settings extends Component {
   setModalVisible2(visible) {
     this.setState({eveningStationsModal: visible});
   }
-
   setMorningStation = stationInitials => {
     this.props.changeMorningStation(stationInitials);
     this.setModalVisible(false);
@@ -42,7 +41,6 @@ class Settings extends Component {
     this.props.changeEveningStation(stationInitials);
     this.setModalVisible2(false);
   };
-
   setModalFalse = () =>{
     console.log('making false')
     this.setState({morningStationsModal: false, eveningStationsModal: false})
@@ -75,20 +73,15 @@ class Settings extends Component {
 }
 
   render() {
-    const config = {
-      velocityThreshold: 0.1,
-      directionalOffsetThreshold: 40
-    };
     // console.log('props---', this.props)
     const darkMode = this.props.state.darkMode;
-    return (
 
+    return (
       <View style={darkMode ? styles.container : styles.containerLight}>
         {/* Morning Station Modal Start */}
         <Modal
           animationType="slide"
           presentationStyle={'formSheet'}
-          // transparent={true}
           visible={this.state.morningStationsModal}
           onDismiss={()=> console.log('dismissed')}
           onRequestClose={() => console.log('been closed')}>
@@ -102,7 +95,6 @@ class Settings extends Component {
                   this.setModalVisible(false)
                 }}>
                 <Text style={styles.exitText}>Exit</Text>
-
                 </TouchableOpacity>
               </View>
               </View>
@@ -240,7 +232,6 @@ class Settings extends Component {
         <Modal
           animationType="slide"
           presentationStyle={'formSheet'}
-          // transparent={true}
           visible={this.state.eveningStationsModal}
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
@@ -477,16 +468,7 @@ const styles = StyleSheet.create({
   secret:{
     width: Dimensions.get('window').width,
     height: 295,
-    // backgroundColor: 'rgba(130, 130, 130, 0.2)',
     zIndex: 5
-  },
-  secretView:{
-    // width: 500,
-    // height: 800,
-    // // position: "absolute",
-    // backgroundColor: 'red',
-    // flex: 1,
-    // zIndex: 1
   },
   backgroundContainer: {
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
@@ -551,7 +533,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modal: {
-    // marginTop: 300,
     zIndex: 10,
     borderRadius: 20,
     width: Dimensions.get('window').width,
