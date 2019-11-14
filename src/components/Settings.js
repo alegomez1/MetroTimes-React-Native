@@ -522,28 +522,28 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   stationItem:{
-    borderBottomColor: 'white',
+    borderBottomColor: '#777777',
     borderBottomWidth: 0.2,
-    height: 60,
-    justifyContent: 'flex-start',
+    height: 50,
+    justifyContent: 'center',
   },
   stationItemLight:{
     borderBottomColor: '#777777',
     borderBottomWidth: 0.2,
-    height: 60,
-    justifyContent: 'flex-start',
+    height: 50,
+    justifyContent: 'center',
   },
   stationName: {
     color: 'white',
     textAlign: 'left',
     fontSize: 20,
-    marginLeft: 50
+    marginLeft: 35
   },
   stationNameLight: {
     color: '#333333',
     textAlign: 'left',
     fontSize: 20,
-    marginLeft: 50
+    marginLeft: 35
   },
   modalContainer: {
     flex: 1,
