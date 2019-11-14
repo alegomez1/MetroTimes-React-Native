@@ -164,9 +164,6 @@ export default connect(mapStateToProps)(Trains)
 
 
 
-
-
-
 const styles = StyleSheet.create({
   darkModeTextColor:{
     color: 'white'
