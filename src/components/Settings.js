@@ -23,15 +23,15 @@ import {
 
 class Settings extends Component {
   state = {
-    viewModal: false,
-    viewModal2: false,
+    morningStationsModal: false,
+    eveningStationsModal: false,
   };
 
   setModalVisible(visible) {
-    this.setState({viewModal: visible});
+    this.setState({morningStationsModal: visible});
   }
   setModalVisible2(visible) {
-    this.setState({viewModal2: visible});
+    this.setState({eveningStationsModal: visible});
   }
 
   setMorningStation = stationInitials => {
@@ -43,10 +43,36 @@ class Settings extends Component {
     this.setModalVisible2(false);
   };
 
-
-  onSwipeDown = () =>{
-    console.log('swiped down')
+  setModalFalse = () =>{
+    console.log('making false')
+    this.setState({morningStationsModal: false, eveningStationsModal: false})
   }
+
+  morningStationsModal = async (modal) => {
+    if(modal === 'morning'){
+
+      if(this.state.morningStationsModal === true){
+        console.log('current state', this.state)
+       await this.setModalFalse()
+        console.log('should now be false',this.state)
+          this.setState({morningStationsModal:true})
+          console.log('should now be true.....', this.state)
+      }else{
+        this.setState({morningStationsModal:true})
+    }
+
+  }else if(modal === 'evening'){
+    if(this.state.eveningStationsModal === true){
+      console.log('current state', this.state)
+     await this.setModalFalse()
+      console.log('should now be false',this.state)
+        this.setState({eveningStationsModal:true})
+        console.log('should now be true.....', this.state)
+    }else{
+      this.setState({eveningStationsModal:true})
+  }
+  }
+}
 
   render() {
     const config = {
@@ -56,175 +82,152 @@ class Settings extends Component {
     // console.log('props---', this.props)
     const darkMode = this.props.state.darkMode;
     return (
+
       <View style={darkMode ? styles.container : styles.containerLight}>
         {/* Morning Station Modal Start */}
         <Modal
           animationType="slide"
-          transparent={true}
-          visible={this.state.viewModal}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-
-  
+          presentationStyle={'formSheet'}
+          // transparent={true}
+          visible={this.state.morningStationsModal}
+          onDismiss={()=> console.log('dismissed')}
+          onRequestClose={() => console.log('been closed')}>
           <View style={styles.modalContainer}>
-          <GestureRecognizer
-        config={config}
-        onSwipeDown={()=> {
-                  this.setModalVisible(false)}}
-        style={{
-        }} >
-          <TouchableOpacity style={styles.secret}
-           onPress={() => {
-                  this.setModalVisible(false)}}>
-          </TouchableOpacity>
-                </GestureRecognizer>
-            <View style={styles.modal}>
-
-
-
-              <View style={styles.exitContainer }>
+            <View style={darkMode ? styles.modal : styles.modalLight}>
+              <View style={darkMode ? styles.exitContainer : styles.exitContainerLight }>
               <View>
                 <TouchableOpacity 
                 style={styles.exitButton}
                 onPress={() => {
                   this.setModalVisible(false)
                 }}>
-                <Text style={styles.doneText}>Exit</Text>
+                <Text style={styles.exitText}>Exit</Text>
 
                 </TouchableOpacity>
               </View>
               </View>
-
-
-
-              
-
-
-
-
 
               <ScrollView style={styles.testHeight}>
                 <TouchableOpacity onPress={() => this.setMorningStation('ALP')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Allapattah</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Allapattah</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('BLK')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Brickell</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Brickell</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('BVL')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Brownsville</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Brownsville</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('CVC')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Civic Center</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Civic Center</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('CGV')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Coconut Grove</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Coconut Grove</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('CUL')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Culmer</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Culmer</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('DLN')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Dadeland North</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Dadeland North</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('DLS')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Dadeland South</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Dadeland South</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('DRD')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Douglas Road</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Douglas Road</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('MLK')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>
                     Dr. Martin Luther King, Jr.
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('EHT')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Earlington Heights</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Earlington Heights</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('GVT')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Government Center</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Government Center</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('HIA')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Hialeah</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Hialeah</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('OVT')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>
                     Historic Overtown/Lyric Theatre
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('MIA')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>
                     Miami International Airport
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('NSD')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Northside</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Northside</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('OKE')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Okeechobee</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Okeechobee</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('PAL')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Palmetto</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Palmetto</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('SCL')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Santa Clara</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Santa Clara</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('SMI')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>South Miami</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>South Miami</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('TRI')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Tri-Rail</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Tri-Rail</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('UNV')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>University</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>University</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setMorningStation('VIZ')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Vizcaya</Text>
+                  <Text style={ darkMode ? styles.stationName : styles.stationNameLight}>Vizcaya</Text>
                 </TouchableOpacity>
               </ScrollView>
             </View>
@@ -236,8 +239,9 @@ class Settings extends Component {
         {/* Evening Station Modal Start */}
         <Modal
           animationType="slide"
-          transparent={true}
-          visible={this.state.viewModal2}
+          presentationStyle={'formSheet'}
+          // transparent={true}
+          visible={this.state.eveningStationsModal}
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
@@ -248,143 +252,136 @@ class Settings extends Component {
                   this.setModalVisible2(false)}}
         style={{
         }} >
-          <TouchableOpacity style={styles.secret}
-           onPress={() => {
-                  this.setModalVisible2(false)}}>
-          </TouchableOpacity>
                 </GestureRecognizer>
-            <View style={styles.modal}>
-              <View style={styles.exitContainer }>
+            <View style={darkMode ? styles.modal : styles.modalLight}>
+              <View style={darkMode ? styles.exitContainer : styles.exitContainerLight }>
                 <TouchableOpacity 
                 style={styles.exitButton}
                 onPress={() => {
                   this.setModalVisible2(false)
-                  
                 }}>
-                <Text style={styles.doneText}>Exit</Text>
+                <Text style={styles.exitText}>Exit</Text>
                 </TouchableOpacity>
               </View>
               <ScrollView style={styles.testHeight}>
                 <TouchableOpacity onPress={() => this.setEveningStation('ALP')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Allapattah</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Allapattah</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('BLK')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Brickell</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Brickell</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('BVL')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Brownsville</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Brownsville</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('CVC')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Civic Center</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Civic Center</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('CGV')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Coconut Grove</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Coconut Grove</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('CUL')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Culmer</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Culmer</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('DLN')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Dadeland North</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Dadeland North</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('DLS')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Dadeland South</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Dadeland South</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('DRD')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Douglas Road</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Douglas Road</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('MLK')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>
-                    Dr. Martin Luther King, Jr.
-                  </Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}> Dr. Martin Luther King, Jr.</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('EHT')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Earlington Heights</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Earlington Heights</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('GVT')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Government Center</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Government Center</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('HIA')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Hialeah</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Hialeah</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('OVT')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>
                     Historic Overtown/Lyric Theatre
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('MIA')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>
                     Miami International Airport
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('NSD')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Northside</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Northside</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('OKE')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Okeechobee</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Okeechobee</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('PAL')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Palmetto</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Palmetto</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('SCL')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Santa Clara</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Santa Clara</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('SMI')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>South Miami</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>South Miami</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('TRI')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Tri-Rail</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Tri-Rail</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('UNV')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>University</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>University</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.setEveningStation('VIZ')}
-                style={styles.stationItem}
+                style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
-                  <Text style={styles.stationName}>Vizcaya</Text>
+                  <Text style={darkMode ? styles.stationName : styles.stationNameLight}>Vizcaya</Text>
                 </TouchableOpacity>
               </ScrollView>
             </View>
@@ -402,7 +399,7 @@ class Settings extends Component {
 
         <TouchableOpacity
           style={darkMode ? [styles.itemContainer, styles.itemContainerStart] : [styles.itemContainerLight, styles.itemContainerStartLight]}
-          onPress={() => this.setModalVisible(true)}
+          onPress={() => this.morningStationsModal('morning')}
           >
             <Text
               style={
@@ -422,7 +419,7 @@ class Settings extends Component {
 
         <TouchableOpacity
           style={ darkMode ? [styles.itemContainerEnd, styles.itemContainer] : [styles.itemContainerLight, styles.itemContainerEndLight]}
-          onPress={() => this.setModalVisible2(true)}
+          onPress={() => this.morningStationsModal('evening')}
           >
             <Text
               style={
@@ -444,7 +441,6 @@ class Settings extends Component {
           style={darkMode ? styles.settingsHeader : styles.settingsHeaderLight}>
          🖥  Display
         </Text>
-
         <View
           style={darkMode ? [styles.itemContainer, styles.itemContainerStart] : [styles.itemContainerLight, styles.itemContainerStartLight]}>
           <View>
@@ -455,16 +451,12 @@ class Settings extends Component {
              🌘  Dark Mode
             </Text>
           </View>
-
           <Switch
             style={styles.toggle}
             value={this.props.state.darkMode}
             onChange={() =>
               this.props.toggleDarkMode(!this.props.state.darkMode)
             }></Switch>
-
-
-
         </View>
       </View>
     );
@@ -485,8 +477,16 @@ const styles = StyleSheet.create({
   secret:{
     width: Dimensions.get('window').width,
     height: 295,
-    // backgroundColor: 'red',
+    // backgroundColor: 'rgba(130, 130, 130, 0.2)',
     zIndex: 5
+  },
+  secretView:{
+    // width: 500,
+    // height: 800,
+    // // position: "absolute",
+    // backgroundColor: 'red',
+    // flex: 1,
+    // zIndex: 1
   },
   backgroundContainer: {
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
@@ -523,15 +523,27 @@ const styles = StyleSheet.create({
   },
   stationItem:{
     borderBottomColor: 'white',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 0.2,
     height: 60,
-    justifyContent: 'center',
-
+    justifyContent: 'flex-start',
+  },
+  stationItemLight:{
+    borderBottomColor: '#777777',
+    borderBottomWidth: 0.2,
+    height: 60,
+    justifyContent: 'flex-start',
   },
   stationName: {
     color: 'white',
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 20,
+    marginLeft: 50
+  },
+  stationNameLight: {
+    color: '#333333',
+    textAlign: 'left',
+    fontSize: 20,
+    marginLeft: 50
   },
   modalContainer: {
     flex: 1,
@@ -542,9 +554,18 @@ const styles = StyleSheet.create({
     // marginTop: 300,
     zIndex: 10,
     borderRadius: 20,
-    width: 400,
-    height: 600,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
     backgroundColor: 'rgba(51, 51, 51, 1)',
+    color: 'white',
+  },
+  modalLight: {
+    // marginTop: 300,
+    zIndex: 10,
+    borderRadius: 20,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    backgroundColor: '#e5e5e5',
     color: 'white',
   },
   testHeight:{
@@ -554,20 +575,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#dd2727',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    height: 50,
+    height: 60,
     justifyContent: "center",
-    width: 400
+    alignItems: 'flex-end',
+    width: Dimensions.get('window').width,
+  },
+  exitContainerLight:{
+    backgroundColor: '#f24141',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    height: 60,
+    justifyContent: "center",
+    alignItems: 'flex-end',
+    width: Dimensions.get('window').width,
   },
   exitButton:{
     // backgroundColor: 'green',
-    // width: 400,
     width: 80,
     height: 50,
     justifyContent: "center"
   },
-  doneText: {
+  exitText: {
+    textAlign: 'center',
     color: 'white',
-    marginLeft: 20,
     fontSize: 20,
     fontWeight: "bold"
   },
