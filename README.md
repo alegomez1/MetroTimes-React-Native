@@ -28,19 +28,19 @@ Therefore I set out to make an app focused soley on the Metrorail that delivered
 
 ## 📱 Demos <a name="demos"/>
 
-### Toggle Morning and Evening Stations
+### 🌞 Toggle Morning and Evening Stations 🌛
 ![](MorningEvening.gif)<br/>
 - On the main page one can quickly and easily toggle between their set morning and evening stations
 - Here they have can see when the next two incoming trains are due
-### Changing Stations
+### 🚉 Changing Stations
 ![](ChangingStations.gif)<br/>
 - In the Settings tab users can set what their morning and evening stations are
 - This is saved globally so they can now see the info in the Trains tab
-### Dark Mode
+### 🌘 Dark Mode
 ![](DarkMode.gif)<br/>
 - Users can set what their display preference is
 - This change is reflected across the entire app
-### Persistent Settings
+### ⚙️ Persistent Settings
 ![](PersistentSettings.gif)<br/>
 - User settings are saved locally using React Persist and Asynchronous Storage
 - These settings persist wwhen the app is closed or force closed from multitasking
@@ -49,9 +49,9 @@ Therefore I set out to make an app focused soley on the Metrorail that delivered
 
 ### Installation
 
-*   Clone the [repo]('https://github.com/alegomez1/MetroTimes-React-Native/')
+*   [Clone the repo](https://github.com/alegomez1/MetroTimes-React-Native)
 *   Use ```npm install``` or ```yarn install``` to install the necessary dependencies
-*   Install the latest version of Xcode as well as the React Native CLI
+*   Install the latest version of [Xcode](https://developer.apple.com/xcode/) as well as the [React Native CLI](https://github.com/react-native-community/cli)
 *   Run ```react-native run-ios```
 *   iPhone simulator will launch for testing
 #### Deploy on Personal iPhone
