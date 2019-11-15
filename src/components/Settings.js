@@ -25,10 +25,11 @@ class Settings extends Component {
     morningStationsModal: false,
     eveningStationsModal: false,
   };
-
+  // Toggles the modal for the morning stations
   setModalVisible(visible) {
     this.setState({morningStationsModal: visible});
   }
+  // Toggles the modal for the evening stations
   setModalVisible2(visible) {
     this.setState({eveningStationsModal: visible});
   }
