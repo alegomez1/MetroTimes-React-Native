@@ -29,10 +29,21 @@ class Trains extends React.Component {
 
     secondSouthTrain: '',
     secondSouthTrainArrival: '----------',
-
   };
+
+  componentDidMount = () =>{
+    this.update(this.props.state.morningStation)
+    this.update(this.props.state.eveningStation)
+  }
+  componentWillUpdate=()=>{
+  }
+  componentDidUpdate=()=>{
+
+    setTimeout(() => {
+
+    }, 100);
+  }
   update = async value => {
-    // Vibration.vibrate(500)
    await axios
       .get(
         `https://www.miamidade.gov/transit/WebServices/TrainTracker/?StationID=${value}`,
@@ -86,7 +97,6 @@ class Trains extends React.Component {
   };
 
   render() {
-
     const darkMode = this.props.state.darkMode
 
     return (
@@ -139,74 +149,17 @@ class Trains extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  // console.log('current state---', state)
   return { state }
 }
 export default connect(mapStateToProps)(Trains)
 
-
-
-
-
-
-
 const styles = StyleSheet.create({
-  darkModeTextColor:{
-    color: 'white'
-  },
-  lightModeTextColor:{
-    color: '#3d3d3d',
-  },
-  container: {
-    flex: 1,
-    paddingTop: 40,
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
-    height: Dimensions.get('window').height,
-  },
-  containerLight: {
-    flex: 1,
-    paddingTop: 40,
-    backgroundColor: '#dbdbdb',
-    height: Dimensions.get('window').height,
-  },
-  status: {
-    // backgroundColor: 'white',
-    backgroundColor: 'rgba(51, 51, 51, 0.9)',
-    height: 90,
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-
-    elevation: 3,
-  },
   appName: {
     color:'white',
-
     marginTop: 40,
     textAlign: 'center',
     fontSize: 30,
     fontFamily: 'AppleSDGothicNeo-Bold',
-  },
-  stationName:{
-    fontFamily: 'AppleSDGothicNeo-Bold',
-    marginTop: 40,
-    fontSize: 30,
-    textAlign: 'center',
-  },
-  timeOfDay: {
-    flexDirection: 'row',
-    // backgroundColor: 'red',
-    height: 50,
-    alignItems: 'center',
-    justifyContent: "center",
-    padding: 40,
   },
   button: {
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
@@ -252,6 +205,62 @@ const styles = StyleSheet.create({
     color:'white',
     fontSize: 20,
     fontFamily: 'AppleSDGothicNeo-Bold',
+  },
+  container: {
+    flex: 1,
+    paddingTop: 40,
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    height: Dimensions.get('window').height,
+  },
+  containerLight: {
+    flex: 1,
+    paddingTop: 40,
+    backgroundColor: '#dbdbdb',
+    height: Dimensions.get('window').height,
+  },
+  darkModeTextColor:{
+    color: 'white'
+  },
+  image:{
+    marginLeft: 5,
+    width: 400,
+    height: 80,
+  },
+  imageView:{
+    flex: 1,
+    backgroundColor: 'red'
+  },
+  lightModeTextColor:{
+    color: '#3d3d3d',
+  },
+  status: {
+    backgroundColor: 'rgba(51, 51, 51, 0.9)',
+    height: 90,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
+  },
+  stationName:{
+    fontFamily: 'AppleSDGothicNeo-Bold',
+    marginTop: 40,
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  timeOfDay: {
+    flexDirection: 'row',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: "center",
+    padding: 40,
   },
   trainPill: {
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
@@ -301,7 +310,6 @@ const styles = StyleSheet.create({
   },
   trainInfo: {
     marginTop: 10,
-    // backgroundColor: 'red',
     height: 50,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -321,13 +329,4 @@ const styles = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-Bold',
     textAlign: "center"
   },
-  imageView:{
-    flex: 1,
-    backgroundColor: 'red'
-  },
-  image:{
-    marginLeft: 5,
-    width: 400,
-    height: 80,
-  }
 });
