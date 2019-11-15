@@ -2,13 +2,13 @@
 
 ![](ChangingStations.gif)<br/>
 
-## Table of Contents
+## 📖 Table of Contents
 - [About](#about)
 - [Demos](#demos)
 - [Setup](#setup)
 - [Author](#author)
 
-## About <a name="about"></a>
+## ✍🏻 About <a name="about"></a>
 
 ### Why Make This?
 
@@ -26,7 +26,7 @@ Therefore I set out to make an app focused soley on the Metrorail that delivered
 
 #### For more details on the code and logic used, please refer to the comments and documentation inside of the code.*
 
-## Demos <a name="demos"/>
+## 📱 Demos <a name="demos"/>
 
 ### Toggle Morning and Evening Stations
 ![](MorningEvening.gif)<br/>
@@ -45,7 +45,7 @@ Therefore I set out to make an app focused soley on the Metrorail that delivered
 - User settings are saved locally using React Persist and Asynchronous Storage
 - These settings persist wwhen the app is closed or force closed from multitasking
 
-## Setup <a name="setup"/>
+## 🛠 Setup <a name="setup"/>
 
 ### Installation
 
@@ -60,12 +60,12 @@ Therefore I set out to make an app focused soley on the Metrorail that delivered
 *   Run the build
 
 
-## Created using:
+## 📦 Created using:
 * [React Native](https://facebook.github.io/react-native/) - Application Design Language
 * [Xcode](https://developer.apple.com/xcode/) - Simulator and Deploying to device
 * [Javascript](https://www.javascript.com/) - Frontend and backend
 * [React Redux](https://redux.js.org/basics/usage-with-react) - Global state manager
 * [Redux Persist](https://github.com/rt2zz/redux-persist) - Allows for persistance of data
 
-## Created by: <a name="author"></a>
+## 🙋🏼‍♂️ Created by: <a name="author"></a>
 * [Alejandro Gomez](https://github.com/alegomez1)
