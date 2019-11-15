@@ -1,13 +1,16 @@
+import React from 'react';
+
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createAppContainer } from 'react-navigation'
+
 import Trains from './src/components/Trains'
 import Settings from './src/components/Settings'
-import React from 'react';
-import Icon from 'react-native-vector-icons/Ionicons'
-import { createStore } from 'redux';
-import { Provider, connect } from 'react-redux';
-import reducer from './src/reducers'
 
+import Icon from 'react-native-vector-icons/Ionicons'
+
+import { store, persistor } from './src/store'
+import { Provider, connect } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
 
 const tabNavigator = createBottomTabNavigator(
 
@@ -20,7 +23,7 @@ const tabNavigator = createBottomTabNavigator(
             },
             tabBarLabel:"Trains",
             tabBarIcon:(
-              <Icon name="ios-train" size={30} color='white' containerStyle={{ marginTop: 6 }}/>
+              <Icon name="ios-train" size={24} color='white' containerStyle={{ marginTop: 6 }}/>
             )
           },
         },
@@ -29,40 +32,43 @@ const tabNavigator = createBottomTabNavigator(
           navigationOptions: {
             tabBarLabel:"Settings",
             tabBarIcon:(
-              <Icon name="ios-settings" size={30} color='white'/>
+              <Icon marginTop={20} name="ios-settings" size={24} color='white'/>
             )
           },
         },
       },
       {
         tabBarOptions: {
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
           marginTop: 30,
+          paddingTop: 20,
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
           style:{
           backgroundColor: 'rgba(51, 51, 51, 0.9)',
+          paddingTop: 10,
+          paddingBottom: 30
           },
           labelStyle:{
-          fontSize: 12,
-          fontWeight: 'bold'
+            // paddingTop:10,
+          fontSize: 10,
+          fontWeight: 'bold',
           }
         },
       }
 )
 
-
 const AppContainer = createAppContainer(tabNavigator)
-
-const store = createStore(reducer)
 
 export default class App extends React.Component{
 
   render () {
     return (
     <Provider store={store}>
+    <PersistGate persistor={persistor}>
     <AppContainer/>
+    </PersistGate>
     </Provider>
     )
   }}
