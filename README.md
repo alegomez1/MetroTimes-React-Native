@@ -5,7 +5,7 @@
 - [Setup](#setup)
 - [Author](#author)
 
-![](MorningEveningStations.gif)
+![](MorningEvening.gif)
 <br>
 
 ## About <a name="about"></a>
