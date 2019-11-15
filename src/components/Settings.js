@@ -72,7 +72,6 @@ class Settings extends Component {
 }
 
   render() {
-    // console.log('props---', this.props)
     const darkMode = this.props.state.darkMode;
 
     return (
@@ -98,7 +97,7 @@ class Settings extends Component {
               </View>
               </View>
 
-              <ScrollView style={styles.testHeight}>
+              <ScrollView style={styles.scrollViewMargin}>
                 <TouchableOpacity onPress={() => this.setMorningStation('ALP')}
                 style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
@@ -247,7 +246,7 @@ class Settings extends Component {
                 <Text style={styles.exitText}>Exit</Text>
                 </TouchableOpacity>
               </View>
-              <ScrollView style={styles.testHeight}>
+              <ScrollView style={styles.scrollViewMargin}>
                 <TouchableOpacity onPress={() => this.setEveningStation('ALP')}
                 style={darkMode ? styles.stationItem : styles.stationItemLight}
                 >
@@ -458,11 +457,6 @@ export default connect(mapStateToProps, {
 })(Settings);
 
 const styles = StyleSheet.create({
-  secret:{
-    width: Dimensions.get('window').width,
-    height: 295,
-    zIndex: 5
-  },
   backgroundContainer: {
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
     height: Dimensions.get('window').height,
@@ -479,6 +473,92 @@ const styles = StyleSheet.create({
     backgroundColor: '#dbdbdb',
     height: Dimensions.get('window').height,
   },
+  exitContainer:{
+    backgroundColor: '#dd2727',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    height: 60,
+    justifyContent: "center",
+    alignItems: 'flex-end',
+    width: Dimensions.get('window').width,
+  },
+  exitContainerLight:{
+    backgroundColor: '#f24141',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    height: 60,
+    justifyContent: "center",
+    alignItems: 'flex-end',
+    width: Dimensions.get('window').width,
+  },
+  exitButton:{
+    width: 80,
+    height: 50,
+    justifyContent: "center"
+  },
+  exitText: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  itemContainer: {
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(51, 51, 51, 0.9)',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  itemContainerLight: {
+    height: 50,
+    flexDirection: 'row',
+    backgroundColor: '#c4c4c4',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 0.2,
+    borderBottomColor: 'white',
+  },
+  itemContainerStart:{
+    borderTopColor: '#c4c4c4',
+    borderTopWidth: 0.2,
+    borderBottomColor: '#c4c4c4',
+    borderBottomWidth: 0.2,
+  },
+  itemContainerStartLight:{
+    borderTopColor: 'black',
+    borderTopWidth: 0.2,
+    borderBottomColor: 'black',
+    borderBottomWidth: 0.2,
+  },
+  itemContainerEnd:{
+    borderBottomColor: '#c4c4c4',
+    borderBottomWidth: 0.2,
+  },
+  itemContainerEndLight:{
+    borderBottomColor: 'black',
+    borderBottomWidth: 0.2,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  modal: {
+    zIndex: 10,
+    borderRadius: 20,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    backgroundColor: 'rgba(51, 51, 51, 1)',
+    color: 'white',
+  },
+  modalLight: {
+    zIndex: 10,
+    borderRadius: 20,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    backgroundColor: '#e5e5e5',
+    color: 'white',
+  },
   pageTitle: {
     fontFamily: 'AppleSDGothicNeo-Bold',
     marginTop: 40,
@@ -492,9 +572,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
     color: 'black',
-  },
-  text: {
-    color: 'white',
   },
   stationItem:{
     borderBottomColor: '#777777',
@@ -520,60 +597,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 35
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  modal: {
-    zIndex: 10,
-    borderRadius: 20,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    backgroundColor: 'rgba(51, 51, 51, 1)',
-    color: 'white',
-  },
-  modalLight: {
-    // marginTop: 300,
-    zIndex: 10,
-    borderRadius: 20,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    backgroundColor: '#e5e5e5',
-    color: 'white',
-  },
-  testHeight:{
+  scrollViewMargin:{
     marginBottom: 50,
-  },
-  exitContainer:{
-    backgroundColor: '#dd2727',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    height: 60,
-    justifyContent: "center",
-    alignItems: 'flex-end',
-    width: Dimensions.get('window').width,
-  },
-  exitContainerLight:{
-    backgroundColor: '#f24141',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    height: 60,
-    justifyContent: "center",
-    alignItems: 'flex-end',
-    width: Dimensions.get('window').width,
-  },
-  exitButton:{
-    // backgroundColor: 'green',
-    width: 80,
-    height: 50,
-    justifyContent: "center"
-  },
-  exitText: {
-    textAlign: 'center',
-    color: 'white',
-    fontSize: 20,
-    fontWeight: "bold"
   },
   settingsHeader: {
     color: '#adadad',
@@ -613,41 +638,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     height: 40,
   },
-  itemContainer: {
-    height: 50,
-    flexDirection: 'row',
-    backgroundColor: 'rgba(51, 51, 51, 0.9)',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  itemContainerLight: {
-    height: 50,
-    flexDirection: 'row',
-    backgroundColor: '#c4c4c4',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottomWidth: 0.2,
-    borderBottomColor: 'white',
-  },
-  itemContainerStart:{
-    borderTopColor: '#c4c4c4',
-    borderTopWidth: 0.2,
-    borderBottomColor: '#c4c4c4',
-    borderBottomWidth: 0.2,
-  },
-  itemContainerStartLight:{
-    borderTopColor: 'black',
-    borderTopWidth: 0.2,
-    borderBottomColor: 'black',
-    borderBottomWidth: 0.2,
-  },
-  itemContainerEnd:{
-    borderBottomColor: '#c4c4c4',
-    borderBottomWidth: 0.2,
-  },
-  itemContainerEndLight:{
-    borderBottomColor: 'black',
-    borderBottomWidth: 0.2,
+  text: {
+    color: 'white',
   },
   toggle: {
     marginRight: 10,
