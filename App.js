@@ -9,9 +9,9 @@ import Settings from './src/components/Settings'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import { store, persistor } from './src/store'
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
-
+// This tab navigator is what the app is centered around
 const tabNavigator = createBottomTabNavigator(
 
   {
@@ -58,11 +58,14 @@ const tabNavigator = createBottomTabNavigator(
         },
       }
 )
-
+// The tab navigator is passed into an AppContainer which is what gets displayed
 const AppContainer = createAppContainer(tabNavigator)
 
 export default class App extends React.Component{
-
+/***
+ * The AppContainer is wrapped in PersistGate which is used to access local storage and persist data after closing app
+ * Provider from Redux is used to house the global state of the app
+ */
   render () {
     return (
     <Provider store={store}>
