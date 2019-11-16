@@ -14,7 +14,7 @@ import convert from 'xml-js'
 import { connect } from 'react-redux'
 
 class Trains extends React.Component {
-
+// This state is used to change the station name and times of all the trains 
   state = {
     stationName: '',
 
@@ -30,19 +30,17 @@ class Trains extends React.Component {
     secondSouthTrain: '',
     secondSouthTrainArrival: '----------',
   };
-
+// Runs the update function at at the opening of the component so set the morning and evening stations based on the user's preferences
   componentDidMount = () =>{
     this.update(this.props.state.morningStation)
     this.update(this.props.state.eveningStation)
   }
-  componentWillUpdate=()=>{
-  }
-  componentDidUpdate=()=>{
-
-    setTimeout(() => {
-
-    }, 100);
-  }
+/**
+ * Update function makes an Axios call to the Miami Dade API in order to fetch the data of the stations
+ * The data is returned in XML format so it's then converted to JSON for easy parsing
+ * There's two if statements to check if what is returned is ***** meaning that there is no train
+ * Otherwise it updates the state with the data fetched from the API
+ */
   update = async value => {
    await axios
       .get(
@@ -97,9 +95,11 @@ class Trains extends React.Component {
   };
 
   render() {
+    // This constant checks to see whether or not Dark Mode has been enabled by the user
     const darkMode = this.props.state.darkMode
 
     return (
+      // Each component has a ternary operator that checks if dark mode is enabled and passes the respective styles based on that 
       <View style={darkMode ? styles.container : styles.containerLight}>
         <Text style={[styles.stationName, darkMode ? styles.darkModeTextColor : styles.lightModeTextColor]}>{this.state.stationName} Station</Text>
         <View style={darkMode ? styles.trainPill : styles.trainPillLight} shadowColor={'black'}>
@@ -128,6 +128,7 @@ class Trains extends React.Component {
         </View>
         
         <View style={styles.timeOfDay}>
+          {/* The Morning and Evening buttons both run the update function to refresh the info displayed (done through another API call) */}
           <TouchableOpacity
             style={darkMode ? styles.button : styles.buttonLight}
             title="Update"
@@ -146,13 +147,12 @@ class Trains extends React.Component {
   }
 }
 
-
-
+// Mapping the state and connecting it to the Trains component for Redux
 const mapStateToProps = (state) => {
   return { state }
 }
 export default connect(mapStateToProps)(Trains)
-
+// Styles for these components in alphabetical order
 const styles = StyleSheet.create({
   appName: {
     color:'white',
