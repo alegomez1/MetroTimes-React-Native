@@ -33,19 +33,32 @@ class Settings extends Component {
   setModalVisible2(visible) {
     this.setState({eveningStationsModal: visible});
   }
+/** 
+ * Gets passed stationInitials and runs a changeMorningStation function from the Redux state
+ * Sets the morning modal to false
+ */
   setMorningStation = stationInitials => {
     this.props.changeMorningStation(stationInitials);
     this.setModalVisible(false);
-  };
+  }
+ /** 
+ * Gets passed stationInitials and runs a changeEveningStation function from the Redux state
+ * Sets the evening modal to false
+ */
   setEveningStation = stationInitials => {
     this.props.changeEveningStation(stationInitials);
     this.setModalVisible2(false);
   };
+  // Used to set the state of both modals to false
   setModalFalse = () =>{
     console.log('making false')
     this.setState({morningStationsModal: false, eveningStationsModal: false})
   }
-
+/**
+ * This async function is used to reset the state of the modals when they are swiped away
+ * When swiped away, the modals are still set as true/visible since so no callback function can be passed when they are swiped away
+ * Therefore this function waits for the setModalFalse() function to run and then sets the modals to be true/visible
+ */
   morningStationsModal = async (modal) => {
     if(modal === 'morning'){
 
@@ -73,9 +86,11 @@ class Settings extends Component {
 }
 
   render() {
+    // This constant checks to see whether or not Dark Mode has been enabled by the user
     const darkMode = this.props.state.darkMode;
 
     return (
+  // Each component has a ternary operator that checks if dark mode is enabled and passes the respective styles based on that
       <View style={darkMode ? styles.container : styles.containerLight}>
         {/* Morning Station Modal Start */}
         <Modal
@@ -446,7 +461,7 @@ class Settings extends Component {
     );
   }
 }
-
+// Mapping the state and connecting it to the Settings component for Redux
 const mapStateToProps = state => {
   return {state};
 };
@@ -456,7 +471,7 @@ export default connect(mapStateToProps, {
   changeEveningStation,
   toggleDarkMode,
 })(Settings);
-
+// Styles for these components in alphabetical order
 const styles = StyleSheet.create({
   backgroundContainer: {
     backgroundColor: 'rgba(51, 51, 51, 0.9)',
