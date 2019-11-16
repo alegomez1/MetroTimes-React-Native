@@ -1,12 +1,4 @@
-//Action creator
-export const changeName = (name) => {
-    //return an action
-    return{
-        type: 'CHANGE_NAME',
-        payload: name
-    }
-}
-
+// These actions are used to change the settings for the global redux state
 export const changeMorningStation = (station) => {
     return{
         type: "CHANGE_MORNING",
